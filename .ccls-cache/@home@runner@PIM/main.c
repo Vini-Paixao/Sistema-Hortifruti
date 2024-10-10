@@ -212,11 +212,11 @@ void menuCompras(char titulo[]) {
     for (int i = 0; i < largura; i++)
       printf("═");
     printf("╣");
-    printf("\n\t║    1 - Comprar Produto         ║");
-    printf("\n\t║    2 - Gerar Relatório         ║");
-    printf("\n\t║    3 - Consultar Pedidos       ║");
-    printf("\n\t║    4 - Histórico de Compras    ║");
-    printf("\n\t║    5 - Voltar                  ║");
+    printf("\n\t║     1 - Comprar Produto        ║");
+    printf("\n\t║     2 - Gerar Relatório        ║");
+    printf("\n\t║     3 - Consultar Pedidos      ║");
+    printf("\n\t║     4 - Histórico de Compras   ║");
+    printf("\n\t║     5 - Voltar                 ║");
 
     printf("\n\t╚");
     for (int i = 0; i < largura; i++)
