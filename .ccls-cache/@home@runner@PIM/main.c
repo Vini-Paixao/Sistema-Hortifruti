@@ -1,7 +1,6 @@
 // PIM ADS Unip 1 e 2º semestre/2024
-// Desenvolvedor: Marcus Paixão
-// Alunos do Grupo: LUIGI PERKOSKI, VITOR RATOLLA, ALEXANDRE PEREIRA, ITALO
-// NUNES & JONATHAN PIRES
+// Desenvolvedor: MARCUS PAIXÃO
+// Alunos do Grupo: LUIGI PERKOSKI, VITOR RATOLLA, ALEXANDRE PEREIRA, ITALO NUNES & JONATHAN PIRES
 
 #include <stdio.h>
 #include <stdlib.h>
