@@ -1,16 +1,18 @@
+#include "menus.h"   // Incluímos o cabeçalho menus.h
+#include "estoque.h" // Incluímos estoque.h para usar Produto
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include "menus.h"  // Inclui o cabeçalho com as declarações
+#include <string.h>
 
 void limparTela() {
 #ifdef _WIN32
-  system("cls");
+  system("cls"); // Comando para Windows
 #else
-  system("clear");
+  system("clear"); // Comando para Linux/MacOS
 #endif
 }
 
+// Definição da função menuPrincipal
 void menuPrincipal(char titulo[]) {
   printf("\033[1;32m"); // Aplicando cor verde
   int largura = 32;
@@ -33,21 +35,24 @@ void menuPrincipal(char titulo[]) {
   for (int i = 0; i < largura; i++)
     printf("═");
   printf("╣");
-  printf("\n\t║     1 - Sistema de Estoque     ║");
+  printf("\n\t║     1 - Gestão de Estoque      ║");
   printf("\n\t║     2 - Sistema do Caixa       ║");
   printf("\n\t║     3 - Sistema de Compras     ║");
-  printf("\n\t║     4 - Encerrar Programa      ║");
+  printf("\n\t║     4 - Encerrar               ║");
 
   printf("\n\t╚");
   for (int i = 0; i < largura; i++)
     printf("═");
   printf("╝");
-  printf("\033[0m");
+  printf("\033[0m"); // Resetar cor
 }
 
-void menuEstoque(char titulo[]) {
+// Definição da função menuEstoque
+void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
   printf("\033[1;34m"); // Aplicando cor azul
   int opcao = 0;
+  long codigoBarras;
+
   while (opcao != 5) {
     limparTela(); // Limpa a tela antes de mostrar o menu
     int largura = 32;
@@ -86,16 +91,25 @@ void menuEstoque(char titulo[]) {
 
     switch (opcao) {
     case 1:
-      // Função para listar produtos
+      listarProdutos(produtos, *totalProdutos); // Função para listar produtos
       break;
     case 2:
-      // Função para buscar produto
+      printf("\nDigite o código de barras: ");
+      scanf("%ld", &codigoBarras);
+      buscarProduto(produtos, *totalProdutos,
+                    codigoBarras); // Função para buscar produto
       break;
     case 3:
-      // Função para remover produto
+      printf("\nDigite o código de barras para remover: ");
+      scanf("%ld", &codigoBarras);
+      removerProduto(produtos, totalProdutos,
+                     codigoBarras); // Função para remover produto
       break;
     case 4:
-      // Função para editar produto
+      printf("\nDigite o código de barras para editar: ");
+      scanf("%ld", &codigoBarras);
+      editarProduto(produtos, *totalProdutos,
+                    codigoBarras); // Função para editar produto
       break;
     case 5:
       printf("Voltando ao menu principal...\n");
