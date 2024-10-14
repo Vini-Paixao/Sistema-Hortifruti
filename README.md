@@ -1,5 +1,4 @@
-
-# Sistema de Gestão Hortifruti
+# Sistema de Gestão Hortifruti - <img align="center" alt="Vini-Python" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg">
 Este é um sistema  de **Gestão de Hortifruti**, desenvolvido em C para o Projeto Integrador Multidisciplinar (PIM) da Unip Cidade Universitária. Ele permite gerenciar 3 áreas dentro do Hortifruti visando melhorar o desemplenho da equipe com um sistema que ajude nas tarefas diárias, os principais sistemas a ser gerenciados são:
 
 - Gestão de Estoque
