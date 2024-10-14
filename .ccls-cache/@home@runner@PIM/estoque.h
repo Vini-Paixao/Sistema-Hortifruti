@@ -15,9 +15,9 @@ typedef struct {
 
 // Funções de gerenciamento de estoque
 void listarProdutos(Produto produtos[], int total);
-void buscarProduto(Produto produtos[], int total, long codigoBarras);
-void removerProduto(Produto produtos[], int *total, long codigoBarras);
-void editarProduto(Produto produtos[], int total, long codigoBarras);
+void buscarProduto(Produto produtos[], int total, char nome[]);
+void removerProduto(Produto produtos[], int *total, char nome[]);
+void editarProduto(Produto produtos[], int total, char nome[]);
 void inicializarProdutos(Produto produtos[], int *totalProdutos);
 
 #endif

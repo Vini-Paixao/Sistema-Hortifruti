@@ -1,5 +1,3 @@
-// main.c
-
 #include "estoque.h"
 #include "menus.h"
 #include <stdio.h>

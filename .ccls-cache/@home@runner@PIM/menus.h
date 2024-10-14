@@ -1,5 +1,3 @@
-// menus.h
-
 #ifndef MENUS_H
 #define MENUS_H
 
@@ -12,6 +10,6 @@ void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos);
 void menuPrincipal(char titulo[]);
 void menuCaixa(char titulo[]);
 void menuCompras(char titulo[]);
-void limparTela();  // Declaração da função limparTela
+void limparTela(); // Declaração da função limparTela
 
 #endif

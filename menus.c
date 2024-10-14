@@ -51,7 +51,7 @@ void menuPrincipal(char titulo[]) {
 void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
   printf("\033[1;34m"); // Aplicando cor azul
   int opcao = 0;
-  long codigoBarras;
+  char nome[50];
 
   while (opcao != 5) {
     limparTela(); // Limpa a tela antes de mostrar o menu
@@ -94,22 +94,22 @@ void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
       listarProdutos(produtos, *totalProdutos); // Função para listar produtos
       break;
     case 2:
-      printf("\nDigite o código de barras: ");
-      scanf("%ld", &codigoBarras);
+      printf("\nDigite o nome do Produto: ");
+      scanf("%s", nome);
       buscarProduto(produtos, *totalProdutos,
-                    codigoBarras); // Função para buscar produto
+                    nome); // Função para buscar produto
       break;
     case 3:
-      printf("\nDigite o código de barras para remover: ");
-      scanf("%ld", &codigoBarras);
+      printf("\nDigite o produto que deseja remover: ");
+      scanf("%s", nome);
       removerProduto(produtos, totalProdutos,
-                     codigoBarras); // Função para remover produto
+                     nome); // Função para remover produto
       break;
     case 4:
-      printf("\nDigite o código de barras para editar: ");
-      scanf("%ld", &codigoBarras);
+      printf("\nDigite o produto que deseja editar: ");
+      scanf("%s", nome);
       editarProduto(produtos, *totalProdutos,
-                    codigoBarras); // Função para editar produto
+                    nome); // Função para editar produto
       break;
     case 5:
       printf("Voltando ao menu principal...\n");

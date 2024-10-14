@@ -1,5 +1,3 @@
-// estoque.c
-
 #include <stdio.h>
 #include <string.h>
 
@@ -35,7 +33,7 @@ void inicializarProdutos(Produto produtos[], int *totalProdutos) {
 }
 
 void listarProdutos(Produto produtos[], int total) {
-  printf("\n\033[1;34mListagem de Produtos no Estoque:\033[0m\n\n");
+  printf("\n\033[1;34mListagem de Produtos no Estoque -\033[0m\n\n");
 
   if (total == 0) {
     printf("Nenhum produto cadastrado!\n");
@@ -62,12 +60,12 @@ void listarProdutos(Produto produtos[], int total) {
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void buscarProduto(Produto produtos[], int total, long codigoBarras) {
-  printf("\033[1;34m"); // Cor azul
+void buscarProduto(Produto produtos[], int total, char nome[]) {
+  printf("\n\033[1;34mBusca de Produtos no Estoque -\033[0m\n\n");
   int encontrado = 0;
 
   for (int i = 0; i < total; i++) {
-    if (produtos[i].codigoBarras == codigoBarras) {
+    if (strcasecmp(produtos[i].nome, nome) == 0) {
       encontrado = 1;
       printf("Produto encontrado:\n");
       printf("Nome: %s\n", produtos[i].nome);
@@ -84,19 +82,23 @@ void buscarProduto(Produto produtos[], int total, long codigoBarras) {
   }
 
   if (!encontrado) {
-    printf("Produto com código de barras %ld não encontrado!\n", codigoBarras);
+    printf("\nProduto %s não encontrado!\n", nome);
   }
 
-  printf("\033[0m"); // Resetar cor
+  printf("\033[1;34m"); // Aplicando cor azul
+  printf("\nPressione ENTER para continuar...\n");
+  getchar(); // Pausa até que o usuário pressione enter
+  getchar(); // Captura o Enter, para evitar pular
 }
 
-void removerProduto(Produto produtos[], int *total, long codigoBarras) {
-  printf("\033[1;34m"); // Cor azul
+void removerProduto(Produto produtos[], int *total, char nome[]) {
+  printf("\n\033[1;34mRemovendo Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
   for (int i = 0; i < *total; i++) {
-    if (produtos[i].codigoBarras == codigoBarras) {
+    if (strcasecmp(produtos[i].nome, nome) == 0) {
       encontrado = 1;
+      printf("\033[0m");
       printf("Produto %s removido do estoque.\n", produtos[i].nome);
 
       // Deslocar todos os produtos seguintes para a posição anterior
@@ -110,31 +112,35 @@ void removerProduto(Produto produtos[], int *total, long codigoBarras) {
   }
 
   if (!encontrado) {
-    printf("Produto com código de barras %ld não encontrado!\n", codigoBarras);
+    printf("Produto %s não encontrado!\n", nome);
   }
 
-  printf("\033[0m"); // Resetar cor
+  printf("\033[1;34m"); // Aplicando cor azul
+  printf("\nPressione ENTER para continuar...\n");
+  getchar(); // Pausa até que o usuário pressione enter
+  getchar(); // Captura o Enter, para evitar pular
 }
 
-void editarProduto(Produto produtos[], int total, long codigoBarras) {
-  printf("\033[1;34m"); // Cor azul
+void editarProduto(Produto produtos[], int total, char nome[]) {
+  printf("\n\033[1;34mEditando Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
   for (int i = 0; i < total; i++) {
-    if (produtos[i].codigoBarras == codigoBarras) {
+    if (strcasecmp(produtos[i].nome, nome) == 0) {
       encontrado = 1;
-      printf("Editando Produto: %s\n", produtos[i].nome);
+      printf("\033[0m"); // Reset da Cor
+      printf("Editando Produto: %s\n\n", produtos[i].nome);
       printf("Digite o novo nome: ");
       scanf(" %[^\n]%*c", produtos[i].nome); // Ler string com espaços
-      printf("Digite a nova categoria: ");
+      printf("\nDigite a nova categoria: ");
       scanf(" %[^\n]%*c", produtos[i].categoria);
-      printf("Digite o novo preço: ");
+      printf("\nDigite o novo preço: ");
       scanf("%f", &produtos[i].preco);
-      printf("Digite o novo fornecedor: ");
+      printf("\nDigite o novo fornecedor: ");
       scanf(" %[^\n]%*c", produtos[i].fornecedor);
-      printf("Digite a nova data de validade (dd/mm/yyyy): ");
+      printf("\nDigite a nova data de validade (dd/mm/yyyy): ");
       scanf(" %[^\n]%*c", produtos[i].validade);
-      printf("Digite a nova quantidade mínima em estoque: ");
+      printf("\nDigite a nova quantidade mínima em estoque: ");
       scanf("%d", &produtos[i].qtdMinima);
       printf("Produto atualizado com sucesso!\n");
       break;
@@ -142,8 +148,11 @@ void editarProduto(Produto produtos[], int total, long codigoBarras) {
   }
 
   if (!encontrado) {
-    printf("Produto com código de barras %ld não encontrado!\n", codigoBarras);
+    printf("Produto %s não encontrado!\n", nome);
   }
 
-  printf("\033[0m"); // Resetar cor
+  printf("\033[1;34m"); // Aplicando cor azul
+  printf("\nPressione ENTER para continuar...\n");
+  getchar(); // Pausa até que o usuário pressione enter
+  getchar(); // Captura o Enter, para evitar pular
 }
