@@ -129,18 +129,23 @@ void editarProduto(Produto produtos[], int total, char nome[]) {
     if (strcasecmp(produtos[i].nome, nome) == 0) {
       encontrado = 1;
       printf("\033[0m"); // Reset da Cor
-      printf("Editando Produto: %s\n\n", produtos[i].nome);
+      printf("Nome anterior: %s\n", produtos[i].nome);
       printf("Digite o novo nome: ");
-      scanf(" %[^\n]%*c", produtos[i].nome); // Ler string com espaços
-      printf("\nDigite a nova categoria: ");
+      scanf(" %[^\n]%*c", produtos[i].nome);
+      printf("\nCategoria anterior: %s\n", produtos[i].categoria);
+      printf("Digite a nova categoria: ");
       scanf(" %[^\n]%*c", produtos[i].categoria);
-      printf("\nDigite o novo preço: ");
+      printf("\nPreço anterior: %.2f\n", produtos[i].preco);
+      printf("Digite o novo preço: ");
       scanf("%f", &produtos[i].preco);
-      printf("\nDigite o novo fornecedor: ");
+      printf("\nFornecedor anterior: %s\n", produtos[i].fornecedor);
+      printf("Digite o novo fornecedor: ");
       scanf(" %[^\n]%*c", produtos[i].fornecedor);
-      printf("\nDigite a nova data de validade (dd/mm/yyyy): ");
+      printf("\nValidade anterior: %s\n", produtos[i].validade);
+      printf("Digite a nova data de validade (dd/mm/yyyy): ");
       scanf(" %[^\n]%*c", produtos[i].validade);
-      printf("\nDigite a nova quantidade mínima em estoque: ");
+      printf("\nQuantidade anterior: %d\n", produtos[i].qtdMinima);
+      printf("Digite a nova quantidade mínima em estoque: ");
       scanf("%d", &produtos[i].qtdMinima);
       printf("Produto atualizado com sucesso!\n");
       break;
