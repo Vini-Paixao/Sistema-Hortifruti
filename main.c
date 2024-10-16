@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 int main() {
-  int opcao = 0;
+  int opcao = 0; // Opção que o usuário vai selecionar e começa em 0
   Produto produtos[100]; // Array para armazenar até 100 produtos
   int totalProdutos = 0; // Contador de produtos no estoque
 
