@@ -1,7 +1,7 @@
 #ifndef MENUS_H
 #define MENUS_H
 
-#include "estoque.h" // Certifique-se de incluir estoque.h para usar Produto
+#include "estoque.h"
 
 // Declaração da função menuEstoque
 void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos);

@@ -32,6 +32,36 @@ void inicializarProdutos(Produto produtos[], int *totalProdutos) {
   *totalProdutos = 3; // Atualizando o total de produtos
 }
 
+void adicionar_ao_estoque(Produto produtos[], int *totalProdutos, char nome[],
+                          char categoria[], float preco, long codigoBarras,
+                          char fornecedor[], char validade[], int qtdMinima,
+                          int quantidade) {
+  if (*totalProdutos >=
+      100) { // Supondo que o limite de produtos no estoque seja 100
+    printf("Estoque cheio. Não é possível adicionar mais produtos.\n");
+    return;
+  }
+
+  Produto novoProduto;
+
+  // Copia as informações fornecidas para o novo produto
+  strcpy(novoProduto.nome, nome);
+  strcpy(novoProduto.categoria, categoria);
+  novoProduto.preco = preco;
+  novoProduto.codigoBarras = codigoBarras;
+  strcpy(novoProduto.fornecedor, fornecedor);
+  strcpy(novoProduto.validade, validade);
+  novoProduto.qtdMinima = qtdMinima;
+
+  // Adiciona o novo produto ao array de produtos
+  produtos[*totalProdutos] = novoProduto;
+
+  // Atualiza o total de produtos
+  *totalProdutos += 1;
+
+  printf("Produto '%s' adicionado ao estoque com sucesso!\n", nome);
+}
+
 void listarProdutos(Produto produtos[], int total) {
   printf("\n\033[1;34mListagem de Produtos no Estoque -\033[0m\n\n");
 

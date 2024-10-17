@@ -1,5 +1,7 @@
 #include "menus.h"   // Incluímos o cabeçalho menus.h
+#include "compras.h" // Incluímos compras.h para adicionar ao Estoque
 #include "estoque.h" // Incluímos estoque.h para usar Produto
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -224,7 +226,7 @@ void menuCompras(char titulo[]) {
 
     switch (opcao) {
     case 1:
-      // Função para comprar produto
+      comprar_produto();
       break;
     case 2:
       // Função para devolver produto
