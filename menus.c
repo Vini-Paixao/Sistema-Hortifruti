@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-void limparTela() {
+void limparTela()
+{
 #ifdef _WIN32
   system("cls"); // Comando para Windows
 #else
@@ -15,7 +16,8 @@ void limparTela() {
 }
 
 // Definição da função menuPrincipal
-void menuPrincipal(char titulo[]) {
+void menuPrincipal(char titulo[])
+{
   printf("\033[1;32m"); // Aplicando cor verde
   int largura = 32;
   int paddingTitulo = (largura - strlen(titulo)) / 2;
@@ -50,12 +52,14 @@ void menuPrincipal(char titulo[]) {
 }
 
 // Definição da função menuEstoque
-void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
+void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos)
+{
   printf("\033[1;34m"); // Aplicando cor azul
   int opcao = 0;
   char nome[50];
 
-  while (opcao != 5) {
+  while (opcao != 5)
+  {
     limparTela(); // Limpa a tela antes de mostrar o menu
     int largura = 32;
     int paddingTitulo = (largura - strlen(titulo)) / 2;
@@ -91,7 +95,8 @@ void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
     printf("\n\nDigite a opção desejada: ");
     scanf("%d", &opcao);
 
-    switch (opcao) {
+    switch (opcao)
+    {
     case 1:
       listarProdutos(produtos, *totalProdutos); // Função para listar produtos
       break;
@@ -123,10 +128,12 @@ void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
   }
 }
 
-void menuCaixa(char titulo[]) {
+void menuCaixa(char titulo[])
+{
   printf("\033[1;31m"); // Aplicando cor vermelha
   int opcao = 0;
-  while (opcao != 5) {
+  while (opcao != 5)
+  {
     limparTela();
     int largura = 32;
     int paddingTitulo = (largura - strlen(titulo)) / 2;
@@ -162,7 +169,8 @@ void menuCaixa(char titulo[]) {
     printf("\n\nDigite a opção desejada: ");
     scanf("%d", &opcao);
 
-    switch (opcao) {
+    switch (opcao)
+    {
     case 1:
       // Função para vender produto
       break;
@@ -185,10 +193,12 @@ void menuCaixa(char titulo[]) {
   }
 }
 
-void menuCompras(char titulo[]) {
+void menuCompras(char titulo[])
+{
   printf("\033[1;35m"); // Aplicando cor magenta
   int opcao = 0;
-  while (opcao != 5) {
+  while (opcao != 5)
+  {
     limparTela();
     int largura = 32;
     int paddingTitulo = (largura - strlen(titulo)) / 2;
@@ -224,7 +234,8 @@ void menuCompras(char titulo[]) {
     printf("\n\nDigite a opção desejada: ");
     scanf("%d", &opcao);
 
-    switch (opcao) {
+    switch (opcao)
+    {
     case 1:
       comprar_produto();
       break;

@@ -3,13 +3,15 @@
 
 #define MAX_PRODUTOS 100
 
-typedef struct {
+typedef struct
+{
   char nome[50];
   char categoria[20];
   float preco;
-  long long codigoBarras;
+  long codigoBarras;
   char fornecedor[30];
   char validade[11];
+  int quantidade;
   int qtdMinima;
 } Produto;
 

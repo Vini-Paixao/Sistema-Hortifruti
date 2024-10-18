@@ -3,47 +3,54 @@
 
 #include "estoque.h"
 
-Produto produtos[100]; // Array global de produtos
+Produto produtos[100];  // Array global de produtos
 int *totalProdutos = 0; // Contador global de produtos no estoque
 
 // Função para adicionar produtos de teste ao estoque
-void inicializarProdutos(Produto produtos[], int *totalProdutos) {
+void inicializarProdutos(Produto produtos[], int *totalProdutos)
+{
   strcpy(produtos[0].nome, "Maçã");
   strcpy(produtos[0].categoria, "Frutas");
   produtos[0].preco = 3.99;
-  produtos[0].codigoBarras = 7891234567895LL;
+  produtos[0].codigoBarras = 78912345;
   strcpy(produtos[0].fornecedor, "Hortifácil");
   strcpy(produtos[0].validade, "10/10/2024");
   produtos[0].qtdMinima = 10;
+  produtos[0].quantidade = 20;
 
   strcpy(produtos[1].nome, "Banana");
   strcpy(produtos[1].categoria, "Frutas");
   produtos[1].preco = 2.50;
-  produtos[1].codigoBarras = 7891234567896LL;
+  produtos[1].codigoBarras = 78912346;
   strcpy(produtos[1].fornecedor, "FrutasBR");
   strcpy(produtos[1].validade, "15/11/2024");
   produtos[1].qtdMinima = 20;
+  produtos[1].quantidade = 20;
 
   strcpy(produtos[2].nome, "Tomate");
   strcpy(produtos[2].categoria, "Legumes");
   produtos[2].preco = 4.20;
-  produtos[2].codigoBarras = 7891234567897LL;
+  produtos[2].codigoBarras = 78912347;
   strcpy(produtos[2].fornecedor, "LegumesVerde");
   strcpy(produtos[2].validade, "20/12/2024");
   produtos[2].qtdMinima = 15;
+  produtos[2].quantidade = 20;
 
   *totalProdutos = 3; // Atualizando o total de produtos
 }
 
-void listarProdutos(Produto produtos[], int total) {
+void listarProdutos(Produto produtos[], int total)
+{
   printf("\n\033[1;34mListagem de Produtos no Estoque -\033[0m\n\n");
 
-  if (total == 0) {
+  if (total == 0)
+  {
     printf("Nenhum produto cadastrado!\n");
     return;
   }
 
-  for (int i = 0; i < total; i++) {
+  for (int i = 0; i < total; i++)
+  {
     printf("Produto %d:\n", i + 1);
     printf("Nome: %s\n", produtos[i].nome);
     printf("Categoria: %s\n", produtos[i].categoria);
@@ -53,7 +60,18 @@ void listarProdutos(Produto produtos[], int total) {
                                    ? produtos[i].fornecedor
                                    : "Não informado");
     printf("Data de Validade: %s\n", produtos[i].validade);
+    printf("Quantidade em Estoque: %d\n", produtos[i].quantidade);
     printf("Quantidade Mínima em Estoque: %d\n", produtos[i].qtdMinima);
+
+    // Verificar se a quantidade está abaixo do mínimo
+    if (produtos[i].quantidade < produtos[i].qtdMinima)
+    {
+      printf("\n⚠️ Atenção: Produto abaixo da quantidade mínima!\n");
+    }
+    else if (produtos[i].quantidade == produtos[i].qtdMinima)
+    {
+      printf("\n⚠️ Atenção: Produto no limite de estoque!\n");
+    }
     printf("\n");
   }
 
@@ -63,12 +81,15 @@ void listarProdutos(Produto produtos[], int total) {
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void buscarProduto(Produto produtos[], int total, char nome[]) {
+void buscarProduto(Produto produtos[], int total, char nome[])
+{
   printf("\n\033[1;34mBusca de Produtos no Estoque -\033[0m\n\n");
   int encontrado = 0;
 
-  for (int i = 0; i < total; i++) {
-    if (strcasecmp(produtos[i].nome, nome) == 0) {
+  for (int i = 0; i < total; i++)
+  {
+    if (strcasecmp(produtos[i].nome, nome) == 0)
+    {
       encontrado = 1;
       printf("Produto encontrado:\n");
       printf("Nome: %s\n", produtos[i].nome);
@@ -79,12 +100,14 @@ void buscarProduto(Produto produtos[], int total, char nome[]) {
                                      ? produtos[i].fornecedor
                                      : "Não informado");
       printf("Data de Validade: %s\n", produtos[i].validade);
+      printf("Quantidade em Estoque: %d\n", produtos[i].quantidade);
       printf("Quantidade Mínima em Estoque: %d\n", produtos[i].qtdMinima);
       break;
     }
   }
 
-  if (!encontrado) {
+  if (!encontrado)
+  {
     printf("\nProduto %s não encontrado!\n", nome);
   }
 
@@ -94,18 +117,22 @@ void buscarProduto(Produto produtos[], int total, char nome[]) {
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void removerProduto(Produto produtos[], int *total, char nome[]) {
+void removerProduto(Produto produtos[], int *total, char nome[])
+{
   printf("\n\033[1;34mRemovendo Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
-  for (int i = 0; i < *total; i++) {
-    if (strcasecmp(produtos[i].nome, nome) == 0) {
+  for (int i = 0; i < *total; i++)
+  {
+    if (strcasecmp(produtos[i].nome, nome) == 0)
+    {
       encontrado = 1;
       printf("\033[0m");
       printf("Produto %s removido do estoque.\n", produtos[i].nome);
 
       // Deslocar todos os produtos seguintes para a posição anterior
-      for (int j = i; j < *total - 1; j++) {
+      for (int j = i; j < *total - 1; j++)
+      {
         produtos[j] = produtos[j + 1];
       }
 
@@ -114,7 +141,8 @@ void removerProduto(Produto produtos[], int *total, char nome[]) {
     }
   }
 
-  if (!encontrado) {
+  if (!encontrado)
+  {
     printf("Produto %s não encontrado!\n", nome);
   }
 
@@ -124,12 +152,15 @@ void removerProduto(Produto produtos[], int *total, char nome[]) {
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void editarProduto(Produto produtos[], int total, char nome[]) {
+void editarProduto(Produto produtos[], int total, char nome[])
+{
   printf("\n\033[1;34mEditando Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
-  for (int i = 0; i < total; i++) {
-    if (strcasecmp(produtos[i].nome, nome) == 0) {
+  for (int i = 0; i < total; i++)
+  {
+    if (strcasecmp(produtos[i].nome, nome) == 0)
+    {
       encontrado = 1;
       printf("\033[0m"); // Reset da Cor
       printf("Nome anterior: %s\n", produtos[i].nome);
@@ -147,15 +178,19 @@ void editarProduto(Produto produtos[], int total, char nome[]) {
       printf("\nValidade anterior: %s\n", produtos[i].validade);
       printf("Digite a nova data de validade (dd/mm/yyyy): ");
       scanf(" %[^\n]%*c", produtos[i].validade);
-      printf("\nQuantidade anterior: %d\n", produtos[i].qtdMinima);
+      printf("\nQuantidade mínima anterior: %d\n", produtos[i].qtdMinima);
       printf("Digite a nova quantidade mínima em estoque: ");
       scanf("%d", &produtos[i].qtdMinima);
+      printf("\nQuantidade anterior: %d\n", produtos[i].quantidade);
+      printf("Digite a nova quantidade em estoque: ");
+      scanf("%d", &produtos[i].quantidade);
       printf("Produto atualizado com sucesso!\n");
       break;
     }
   }
 
-  if (!encontrado) {
+  if (!encontrado)
+  {
     printf("Produto %s não encontrado!\n", nome);
   }
 
