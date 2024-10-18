@@ -26,7 +26,7 @@ Este é um sistema de **Gestão de Hortifruti**, desenvolvido em C para o Projet
 
 ## Demonstração
 
-Confira em primeira mão a versão Beta 1.0: [Clique aqui](https://github.com/Vini-Paixao/PIM/releases/download/Beta/main.exe)
+Confira em primeira mão a versão Beta 1.0: [Clique aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/download/Beta/sistema-hortifruti.exe)
 
 - Essa versão contempla o módulo **Gestão de Estoque** completa e funcional e o começo do **Sistema de Compras**
 
