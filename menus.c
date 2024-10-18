@@ -52,7 +52,7 @@ void menuPrincipal(char titulo[])
 }
 
 // Definição da função menuEstoque
-void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos)
+void menuEstoque(char titulo[])
 {
   printf("\033[1;34m"); // Aplicando cor azul
   int opcao = 0;
@@ -98,25 +98,22 @@ void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos)
     switch (opcao)
     {
     case 1:
-      listarProdutos(produtos, *totalProdutos); // Função para listar produtos
+      listarProdutos(); // Função para listar produtos
       break;
     case 2:
       printf("\nDigite o nome do Produto: ");
       scanf("%s", nome);
-      buscarProduto(produtos, *totalProdutos,
-                    nome); // Função para buscar produto
+      buscarProduto(nome); // Função para buscar produto
       break;
     case 3:
       printf("\nDigite o produto que deseja remover: ");
       scanf("%s", nome);
-      removerProduto(produtos, totalProdutos,
-                     nome); // Função para remover produto
+      removerProduto(nome); // Função para remover produto
       break;
     case 4:
       printf("\nDigite o produto que deseja editar: ");
       scanf("%s", nome);
-      editarProduto(produtos, *totalProdutos,
-                    nome); // Função para editar produto
+      editarProduto(nome); // Função para editar produto
       break;
     case 5:
       printf("Voltando ao menu principal...\n");

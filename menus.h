@@ -4,7 +4,7 @@
 #include "estoque.h"
 
 // Declaração da função menuEstoque
-void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos);
+void menuEstoque(char titulo[]);
 
 // Declaração das outras funções de menu
 void menuPrincipal(char titulo[]);

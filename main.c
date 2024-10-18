@@ -1,7 +1,10 @@
 #include "estoque.h"
 #include "menus.h"
+#include "compra.h"
+
 #include <stdio.h>
 #include <windows.h>
+#include <time.h>
 
 void configurarConsoleUTF8()
 {
@@ -10,14 +13,11 @@ void configurarConsoleUTF8()
 
 int main()
 {
+    srand(time(NULL)); // Inicializa o gerador de números aleatórios com base no tempo
     configurarConsoleUTF8(); // Configura o console para UTF-8
-    int opcao = 0;           // Opção que o usuário vai selecionar e começa em 0
-    Produto produtos[100];   // Array para armazenar até 100 produtos
-    int totalProdutos = 0;   // Contador de produtos no estoque
+    inicializarProdutos(); // Inicializando produtos de teste
 
-    // Inicializando produtos de teste
-    inicializarProdutos(produtos, &totalProdutos);
-
+    int opcao = 0; // Opção que o usuário vai selecionar e começa em 0
     while (opcao != 4)
     {
         limparTela();
@@ -35,7 +35,7 @@ int main()
         switch (opcao)
         {
         case 1:
-            menuEstoque("Gestão de Estoque", produtos, &totalProdutos);
+            menuEstoque("Gestão de Estoque");
             break;
         case 2:
             menuCaixa("Sistema do Caixa");

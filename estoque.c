@@ -1,18 +1,28 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "estoque.h"
 
-Produto produtos[100];  // Array global de produtos
-int *totalProdutos = 0; // Contador global de produtos no estoque
+Produto produtos[100]; // Array global de produtos
+int totalProdutos = 0; // Contador global de produtos no estoque
+
+long gerar_codigo_barras()
+{
+    int prefixo = 2970; // Define os 4 primeiros dígitos
+    int sufixo = rand() % 10000; // Gera os 4 últimos dígitos aleatórios (0 a 9999)
+    long codigo_barras = prefixo * 10000L + sufixo; // Combina prefixo e sufixo
+    return codigo_barras;
+}
 
 // Função para adicionar produtos de teste ao estoque
-void inicializarProdutos(Produto produtos[], int *totalProdutos)
+void inicializarProdutos()
 {
   strcpy(produtos[0].nome, "Maçã");
   strcpy(produtos[0].categoria, "Frutas");
   produtos[0].preco = 3.99;
-  produtos[0].codigoBarras = 78912345;
+  produtos[0].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[0].fornecedor, "Hortifácil");
   strcpy(produtos[0].validade, "10/10/2024");
   produtos[0].qtdMinima = 10;
@@ -21,7 +31,7 @@ void inicializarProdutos(Produto produtos[], int *totalProdutos)
   strcpy(produtos[1].nome, "Banana");
   strcpy(produtos[1].categoria, "Frutas");
   produtos[1].preco = 2.50;
-  produtos[1].codigoBarras = 78912346;
+  produtos[1].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[1].fornecedor, "FrutasBR");
   strcpy(produtos[1].validade, "15/11/2024");
   produtos[1].qtdMinima = 20;
@@ -30,26 +40,26 @@ void inicializarProdutos(Produto produtos[], int *totalProdutos)
   strcpy(produtos[2].nome, "Tomate");
   strcpy(produtos[2].categoria, "Legumes");
   produtos[2].preco = 4.20;
-  produtos[2].codigoBarras = 78912347;
+  produtos[2].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[2].fornecedor, "LegumesVerde");
   strcpy(produtos[2].validade, "20/12/2024");
   produtos[2].qtdMinima = 15;
   produtos[2].quantidade = 20;
 
-  *totalProdutos = 3; // Atualizando o total de produtos
+  totalProdutos = 3; // Atualizando o total de produtos
 }
 
-void listarProdutos(Produto produtos[], int total)
+void listarProdutos()
 {
   printf("\n\033[1;34mListagem de Produtos no Estoque -\033[0m\n\n");
 
-  if (total == 0)
+  if (totalProdutos == 0)
   {
     printf("Nenhum produto cadastrado!\n");
     return;
   }
 
-  for (int i = 0; i < total; i++)
+  for (int i = 0; i < totalProdutos; i++)
   {
     printf("Produto %d:\n", i + 1);
     printf("Nome: %s\n", produtos[i].nome);
@@ -81,12 +91,12 @@ void listarProdutos(Produto produtos[], int total)
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void buscarProduto(Produto produtos[], int total, char nome[])
+void buscarProduto(char nome[])
 {
   printf("\n\033[1;34mBusca de Produtos no Estoque -\033[0m\n\n");
   int encontrado = 0;
 
-  for (int i = 0; i < total; i++)
+  for (int i = 0; i < totalProdutos; i++)
   {
     if (strcasecmp(produtos[i].nome, nome) == 0)
     {
@@ -108,7 +118,7 @@ void buscarProduto(Produto produtos[], int total, char nome[])
 
   if (!encontrado)
   {
-    printf("\nProduto %s não encontrado!\n", nome);
+    printf("\nProduto %s o encontrado!\n", nome);
   }
 
   printf("\033[1;34m"); // Aplicando cor azul
@@ -117,12 +127,12 @@ void buscarProduto(Produto produtos[], int total, char nome[])
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void removerProduto(Produto produtos[], int *total, char nome[])
+void removerProduto(char nome[])
 {
   printf("\n\033[1;34mRemovendo Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
-  for (int i = 0; i < *total; i++)
+  for (int i = 0; i < totalProdutos; i++)
   {
     if (strcasecmp(produtos[i].nome, nome) == 0)
     {
@@ -131,12 +141,12 @@ void removerProduto(Produto produtos[], int *total, char nome[])
       printf("Produto %s removido do estoque.\n", produtos[i].nome);
 
       // Deslocar todos os produtos seguintes para a posição anterior
-      for (int j = i; j < *total - 1; j++)
+      for (int j = i; j < totalProdutos - 1; j++)
       {
         produtos[j] = produtos[j + 1];
       }
 
-      (*total)--; // Reduzir o número total de produtos
+      (totalProdutos)--; // Reduzir o número total de produtos
       break;
     }
   }
@@ -152,12 +162,12 @@ void removerProduto(Produto produtos[], int *total, char nome[])
   getchar(); // Captura o Enter, para evitar pular
 }
 
-void editarProduto(Produto produtos[], int total, char nome[])
+void editarProduto(char nome[])
 {
   printf("\n\033[1;34mEditando Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
-  for (int i = 0; i < total; i++)
+  for (int i = 0; i < totalProdutos; i++)
   {
     if (strcasecmp(produtos[i].nome, nome) == 0)
     {
