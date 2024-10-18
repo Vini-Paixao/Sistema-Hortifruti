@@ -1,5 +1,5 @@
 #include "menus.h"   // Incluímos o cabeçalho menus.h
-#include "compras.h" // Incluímos compras.h para adicionar ao Estoque
+#include "compra.h"  // Incluímos compra.h para adicionar ao Estoque
 #include "estoque.h" // Incluímos estoque.h para usar Produto
 
 #include <stdio.h>
@@ -29,7 +29,7 @@ void menuPrincipal(char titulo[]) {
   for (int i = 0; i < paddingTitulo; i++)
     printf(" ");
   printf("%s", titulo);
-  for (int i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
+  for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
     printf(" ");
   printf("║");
 
@@ -69,7 +69,7 @@ void menuEstoque(char titulo[], Produto produtos[], int *totalProdutos) {
     for (int i = 0; i < paddingTitulo; i++)
       printf(" ");
     printf("%s", titulo);
-    for (int i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
+    for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
       printf(" ");
     printf(" ║");
 
@@ -140,7 +140,7 @@ void menuCaixa(char titulo[]) {
     for (int i = 0; i < paddingTitulo; i++)
       printf(" ");
     printf("%s", titulo);
-    for (int i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
+    for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
       printf(" ");
     printf("║");
 
@@ -202,7 +202,7 @@ void menuCompras(char titulo[]) {
     for (int i = 0; i < paddingTitulo; i++)
       printf(" ");
     printf("%s", titulo);
-    for (int i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
+    for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
       printf(" ");
     printf("║");
 

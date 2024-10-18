@@ -3,12 +3,15 @@
 
 #include "estoque.h"
 
+Produto produtos[100]; // Array global de produtos
+int *totalProdutos = 0; // Contador global de produtos no estoque
+
 // Função para adicionar produtos de teste ao estoque
 void inicializarProdutos(Produto produtos[], int *totalProdutos) {
   strcpy(produtos[0].nome, "Maçã");
   strcpy(produtos[0].categoria, "Frutas");
   produtos[0].preco = 3.99;
-  produtos[0].codigoBarras = 7891234567895;
+  produtos[0].codigoBarras = 7891234567895LL;
   strcpy(produtos[0].fornecedor, "Hortifácil");
   strcpy(produtos[0].validade, "10/10/2024");
   produtos[0].qtdMinima = 10;
@@ -16,7 +19,7 @@ void inicializarProdutos(Produto produtos[], int *totalProdutos) {
   strcpy(produtos[1].nome, "Banana");
   strcpy(produtos[1].categoria, "Frutas");
   produtos[1].preco = 2.50;
-  produtos[1].codigoBarras = 7891234567896;
+  produtos[1].codigoBarras = 7891234567896LL;
   strcpy(produtos[1].fornecedor, "FrutasBR");
   strcpy(produtos[1].validade, "15/11/2024");
   produtos[1].qtdMinima = 20;
@@ -24,42 +27,12 @@ void inicializarProdutos(Produto produtos[], int *totalProdutos) {
   strcpy(produtos[2].nome, "Tomate");
   strcpy(produtos[2].categoria, "Legumes");
   produtos[2].preco = 4.20;
-  produtos[2].codigoBarras = 7891234567897;
+  produtos[2].codigoBarras = 7891234567897LL;
   strcpy(produtos[2].fornecedor, "LegumesVerde");
   strcpy(produtos[2].validade, "20/12/2024");
   produtos[2].qtdMinima = 15;
 
   *totalProdutos = 3; // Atualizando o total de produtos
-}
-
-void adicionar_ao_estoque(Produto produtos[], int *totalProdutos, char nome[],
-                          char categoria[], float preco, long codigoBarras,
-                          char fornecedor[], char validade[], int qtdMinima,
-                          int quantidade) {
-  if (*totalProdutos >=
-      100) { // Supondo que o limite de produtos no estoque seja 100
-    printf("Estoque cheio. Não é possível adicionar mais produtos.\n");
-    return;
-  }
-
-  Produto novoProduto;
-
-  // Copia as informações fornecidas para o novo produto
-  strcpy(novoProduto.nome, nome);
-  strcpy(novoProduto.categoria, categoria);
-  novoProduto.preco = preco;
-  novoProduto.codigoBarras = codigoBarras;
-  strcpy(novoProduto.fornecedor, fornecedor);
-  strcpy(novoProduto.validade, validade);
-  novoProduto.qtdMinima = qtdMinima;
-
-  // Adiciona o novo produto ao array de produtos
-  produtos[*totalProdutos] = novoProduto;
-
-  // Atualiza o total de produtos
-  *totalProdutos += 1;
-
-  printf("Produto '%s' adicionado ao estoque com sucesso!\n", nome);
 }
 
 void listarProdutos(Produto produtos[], int total) {
