@@ -2,23 +2,26 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc.exe arquivo de build ativo",
+            "label": "C/C++: Compilar Sistema Hortifruti",
             "command": "C:\\MinGW\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}\\*.c", // Compilar todos os arquivos .c no diretório de trabalho
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}\\output\\sistema-hortifruti.exe" // Nome do executável de saída
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build",
-            "detail": "Tarefa gerada pelo Depurador."
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Compilação completa do sistema hortifruti."
         }
     ],
     "version": "2.0.0"

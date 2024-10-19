@@ -1,15 +1,15 @@
 {
     "configurations": [
         {
-            "name": "C/C++: gcc.exe Compilar e depurar o arquivo ativo",
+            "name": "C/C++: gcc.exe Executar Sistema Hortifruti",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\output\\sistema-hortifruti.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true, // Para ver a saída no console externo
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
             "setupCommands": [
@@ -24,7 +24,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: gcc.exe arquivo de build ativo"
+            "preLaunchTask": "C/C++: Compilar Sistema Hortifruti"
         }
     ],
     "version": "2.0.0"

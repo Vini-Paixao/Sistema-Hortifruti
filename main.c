@@ -1,15 +1,10 @@
 #include "estoque.h"
 #include "menus.h"
 #include "compra.h"
+#include "utilidades.h"
 
 #include <stdio.h>
-#include <windows.h>
 #include <time.h>
-
-void configurarConsoleUTF8()
-{
-    SetConsoleOutputCP(65001); // Força a saída para UTF-8 no Windows
-}
 
 int main()
 {

@@ -4,50 +4,10 @@
 #include <time.h>
 
 #include "estoque.h"
+#include "utilidades.h"
 
 Produto produtos[100]; // Array global de produtos
 int totalProdutos = 0; // Contador global de produtos no estoque
-
-long gerar_codigo_barras()
-{
-    int prefixo = 2970; // Define os 4 primeiros dígitos
-    int sufixo = rand() % 10000; // Gera os 4 últimos dígitos aleatórios (0 a 9999)
-    long codigo_barras = prefixo * 10000L + sufixo; // Combina prefixo e sufixo
-    return codigo_barras;
-}
-
-// Função para adicionar produtos de teste ao estoque
-void inicializarProdutos()
-{
-  strcpy(produtos[0].nome, "Maçã");
-  strcpy(produtos[0].categoria, "Frutas");
-  produtos[0].preco = 3.99;
-  produtos[0].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[0].fornecedor, "Hortifácil");
-  strcpy(produtos[0].validade, "10/10/2024");
-  produtos[0].qtdMinima = 10;
-  produtos[0].quantidade = 20;
-
-  strcpy(produtos[1].nome, "Banana");
-  strcpy(produtos[1].categoria, "Frutas");
-  produtos[1].preco = 2.50;
-  produtos[1].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[1].fornecedor, "FrutasBR");
-  strcpy(produtos[1].validade, "15/11/2024");
-  produtos[1].qtdMinima = 20;
-  produtos[1].quantidade = 20;
-
-  strcpy(produtos[2].nome, "Tomate");
-  strcpy(produtos[2].categoria, "Legumes");
-  produtos[2].preco = 4.20;
-  produtos[2].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[2].fornecedor, "LegumesVerde");
-  strcpy(produtos[2].validade, "20/12/2024");
-  produtos[2].qtdMinima = 15;
-  produtos[2].quantidade = 20;
-
-  totalProdutos = 3; // Atualizando o total de produtos
-}
 
 void listarProdutos()
 {
@@ -58,6 +18,12 @@ void listarProdutos()
     printf("Nenhum produto cadastrado!\n");
     return;
   }
+
+  // Obter a data atual
+  time_t agora;
+  struct tm data_atual;
+  time(&agora);
+  data_atual = *localtime(&agora);
 
   for (int i = 0; i < totalProdutos; i++)
   {
@@ -73,14 +39,34 @@ void listarProdutos()
     printf("Quantidade em Estoque: %d\n", produtos[i].quantidade);
     printf("Quantidade Mínima em Estoque: %d\n", produtos[i].qtdMinima);
 
-    // Verificar se a quantidade está abaixo do mínimo
+    // Converter a data de validade do produto para struct tm
+    struct tm data_validade = string_para_data(produtos[i].validade);
+
+    // Calcular a diferença entre a data de validade e a data atual
+    int dias_restantes = diferenca_em_dias(data_validade, data_atual);
+
+    // Verificações de validade
+    if (dias_restantes > 0)
+    {
+      printf("⚠️ Produto válido. Faltam %d dias para vencer.\n", dias_restantes);
+    }
+    else if (dias_restantes == 0)
+    {
+      printf("⚠️ Atenção: O produto está vencendo hoje!\n");
+    }
+    else
+    {
+      printf("⚠️ Atenção: O produto está vencido há %d dias.\n", -dias_restantes);
+    }
+
+    // Verificações de quantidade em estoque
     if (produtos[i].quantidade < produtos[i].qtdMinima)
     {
-      printf("\n⚠️ Atenção: Produto abaixo da quantidade mínima!\n");
+      printf("⚠️ Atenção: Produto abaixo da quantidade mínima!\n");
     }
     else if (produtos[i].quantidade == produtos[i].qtdMinima)
     {
-      printf("\n⚠️ Atenção: Produto no limite de estoque!\n");
+      printf("⚠️ Atenção: Produto no limite de estoque!\n");
     }
     printf("\n");
   }
