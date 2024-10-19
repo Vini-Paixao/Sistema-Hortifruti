@@ -20,7 +20,5 @@ void listarProdutos();
 void buscarProduto(char nome[]);
 void removerProduto(char nome[]);
 void editarProduto(char nome[]);
-void inicializarProdutos();
-long gerar_codigo_barras();
 
 #endif

@@ -11,6 +11,7 @@ int totalProdutos = 0; // Contador global de produtos no estoque
 
 void listarProdutos()
 {
+  configurarConsoleUTF8();
   printf("\n\033[1;34mListagem de Produtos no Estoque -\033[0m\n\n");
 
   if (totalProdutos == 0)
@@ -27,7 +28,7 @@ void listarProdutos()
 
   for (int i = 0; i < totalProdutos; i++)
   {
-    printf("Produto %d:\n", i + 1);
+    printf("\n\n\033[1;34m===== Produto %d =====\033[0m\n\n", i + 1);
     printf("Nome: %s\n", produtos[i].nome);
     printf("Categoria: %s\n", produtos[i].categoria);
     printf("Preço: R$ %.2f\n", produtos[i].preco);
@@ -45,10 +46,11 @@ void listarProdutos()
     // Calcular a diferença entre a data de validade e a data atual
     int dias_restantes = diferenca_em_dias(data_validade, data_atual);
 
+    printf("\n\033[1;34m===== Verificação de Validade =====\033[0m\n\n");
     // Verificações de validade
     if (dias_restantes > 0)
     {
-      printf("⚠️ Produto válido. Faltam %d dias para vencer.\n", dias_restantes);
+      printf("✅ Produto na data de validade. Faltam %d dias para vencer.\n", dias_restantes);
     }
     else if (dias_restantes == 0)
     {
@@ -56,13 +58,18 @@ void listarProdutos()
     }
     else
     {
-      printf("⚠️ Atenção: O produto está vencido há %d dias.\n", -dias_restantes);
+      printf("❌ Atenção: O produto está vencido há %d dias.\n", -dias_restantes);
     }
 
+    printf("\n\033[1;34m===== Verificação de Estoque =====\033[0m\n\n");
     // Verificações de quantidade em estoque
     if (produtos[i].quantidade < produtos[i].qtdMinima)
     {
-      printf("⚠️ Atenção: Produto abaixo da quantidade mínima!\n");
+      printf("❌ Atenção: Produto abaixo da quantidade mínima!\n");
+    }
+    else if (produtos[i].quantidade > produtos[i].qtdMinima)
+    {
+      printf("✅ Produto acima do limite de estoque!\n");
     }
     else if (produtos[i].quantidade == produtos[i].qtdMinima)
     {
@@ -123,7 +130,7 @@ void removerProduto(char nome[])
     if (strcasecmp(produtos[i].nome, nome) == 0)
     {
       encontrado = 1;
-      printf("\033[0m");
+      printf("\033[0m"); // Reset de Cor
       printf("Produto %s removido do estoque.\n", produtos[i].nome);
 
       // Deslocar todos os produtos seguintes para a posição anterior

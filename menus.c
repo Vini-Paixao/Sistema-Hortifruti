@@ -1,19 +1,11 @@
 #include "menus.h"   // Incluímos o cabeçalho menus.h
 #include "compra.h"  // Incluímos compra.h para adicionar ao Estoque
 #include "estoque.h" // Incluímos estoque.h para usar Produto
+#include "utilidades.h" // Incluímos utilidades.h para usar as Funções Auxiliares
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void limparTela()
-{
-#ifdef _WIN32
-  system("cls"); // Comando para Windows
-#else
-  system("clear"); // Comando para Linux/MacOS
-#endif
-}
 
 // Definição da função menuPrincipal
 void menuPrincipal(char titulo[])

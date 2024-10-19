@@ -4,13 +4,16 @@
 #include "utilidades.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
 #include <time.h>
+#include <locale.h>
 
 int main()
 {
     srand(time(NULL)); // Inicializa o gerador de números aleatórios com base no tempo
     configurarConsoleUTF8(); // Configura o console para UTF-8
-    inicializarProdutos(); // Inicializando produtos de teste
+    inicializarProdutos(); // Inicializando produtos base do Estoque
 
     int opcao = 0; // Opção que o usuário vai selecionar e começa em 0
     while (opcao != 4)

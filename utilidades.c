@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <locale.h>
+
 
 #include "estoque.h"
 #include "compra.h"
@@ -10,8 +12,38 @@
 extern Produto produtos[100]; // Array global de produtos
 extern int totalProdutos; // Contador global de produtos no estoque
 
+
+void limparTela()
+{
+#ifdef _WIN32
+  system("cls"); // Comando para Windows
+#else
+  system("clear"); // Comando para Linux/MacOS
+#endif
+}
+
+//login do administrador
+int login_admin(char login[], char senha[])
+{
+  const char admin_login[] = "admin";
+  const char admin_senha[] = "1234";
+
+  if (strcmp(login, admin_login) == 0 && strcmp(senha, admin_senha) == 0)
+  {
+    return 1; // Login válido
+  }
+  return 0; // Login inválido
+}
+
+// Função que limpa o buffer
+void limpar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 void configurarConsoleUTF8()
 {
+    setlocale(LC_ALL, "Portuguese.UTF-8");
     SetConsoleOutputCP(65001); // Força a saída para UTF-8 no Windows
 }
 

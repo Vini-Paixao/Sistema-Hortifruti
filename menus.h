@@ -3,13 +3,9 @@
 
 #include "estoque.h"
 
-// Declaração da função menuEstoque
 void menuEstoque(char titulo[]);
-
-// Declaração das outras funções de menu
 void menuPrincipal(char titulo[]);
 void menuCaixa(char titulo[]);
 void menuCompras(char titulo[]);
-void limparTela(); // Declaração da função limparTela
 
 #endif

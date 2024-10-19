@@ -1,5 +1,6 @@
 #include "compra.h"
 #include "estoque.h"
+#include "utilidades.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -7,25 +8,13 @@
 extern Produto produtos[100];
 extern int totalProdutos; // Contador do total de produtos no estoque
 
-// Simula o login do administrador
-int login_admin(char login[], char senha[])
-{
-  const char admin_login[] = "admin";
-  const char admin_senha[] = "1234";
-
-  if (strcmp(login, admin_login) == 0 && strcmp(senha, admin_senha) == 0)
-  {
-    return 1; // Login válido
-  }
-  return 0; // Login inválido
-}
-
 void adicionar_ao_estoque(char nome[], char categoria[], float preco,
                           long codigoBarras, char fornecedor[], char validade[],
                           int qtdMinima, int quantidade)
 {
-  if (totalProdutos >= 100)
-  { // Limite de produtos
+  configurarConsoleUTF8();
+  if (totalProdutos >= 100) // Limite de produtos
+  {
     printf("Estoque cheio. Não é possível adicionar mais produtos.\n");
     return;
   }
@@ -48,7 +37,6 @@ void adicionar_ao_estoque(char nome[], char categoria[], float preco,
 }
 
 // Função que realiza a compra de produto
-// Função que realiza a compra de produto
 void comprar_produto()
 {
   char nome[50];
@@ -61,59 +49,78 @@ void comprar_produto()
   int quantidade;
   char admin_login[20], admin_senha[20];
 
+  configurarConsoleUTF8();
+
   // Captura as informações do produto
-  printf("\033[1;35m"); // Aplicando cor magenta
-  printf("\n===== Comprar Produto =====\n\n");
-  printf("\033[0m"); // Resetar cor
+  printf("\n\033[1;35m===== Comprar Produto =====\033[0m\n\n");
+
+  // Captura o nome do produto
   printf("Digite o nome do produto: ");
-  scanf(" %[^\n]s", nome); // Aceita espaços no nome
+  getchar(); // Limpa o buffer antes de capturar o nome
+  fgets(nome, sizeof(nome), stdin);
+  nome[strcspn(nome, "\n")] = 0; // Remove o '\n' capturado pelo fgets
+
+  // Captura a categoria do produto
   printf("Digite a categoria do produto: ");
-  scanf(" %[^\n]s", categoria); // Aceita espaços na categoria
+  fgets(categoria, sizeof(categoria), stdin);
+  categoria[strcspn(categoria, "\n")] = 0; // Remove o '\n'
+
+  // Captura o preço do produto
   printf("Digite o preço do produto: ");
   scanf("%f", &preco);
+  limpar_buffer(); // Limpa o buffer de entrada
+
   // Gera o código de barras de forma automática
   codigoBarras = gerar_codigo_barras();
   printf("Código de barras gerado automaticamente: %ld\n", codigoBarras);
 
+  // Captura o nome do fornecedor
   printf("Digite o nome do fornecedor: ");
-  scanf(" %[^\n]s", fornecedor); // Aceita espaços no nome do fornecedor
+  fgets(fornecedor, sizeof(fornecedor), stdin);
+  fornecedor[strcspn(fornecedor, "\n")] = 0; // Remove o '\n'
+
+  // Captura a data de validade
   printf("Digite a data de validade (DD/MM/AAAA): ");
-  scanf(" %[^\n]s", validade);
+  fgets(validade, sizeof(validade), stdin);
+  validade[strcspn(validade, "\n")] = 0; // Remove o '\n'
+
+  // Captura a quantidade mínima
   printf("Digite a quantidade mínima necessária em estoque: ");
   scanf("%d", &qtdMinima);
+  limpar_buffer(); // Limpa o buffer de entrada
+
+  // Captura a quantidade a ser comprada
   printf("Digite a quantidade do produto a ser comprada: ");
   scanf("%d", &quantidade);
+  limpar_buffer(); // Limpa o buffer de entrada
 
-  printf("\033[1;35m"); // Aplicando cor magenta
-  printf("\n===== Autorização do Responsável =====\n\n");
-  printf("\033[0m"); // Resetar cor
   // Solicitar a autenticação do administrador
+  printf("\n\033[1;35m===== Autorização do Responsável =====\033[0m\n\n");
+
   printf("Digite o login: ");
-  scanf("%s", admin_login);
+  fgets(admin_login, sizeof(admin_login), stdin);
+  admin_login[strcspn(admin_login, "\n")] = 0; // Remove o '\n'
+
   printf("Digite a senha: ");
-  scanf("%s", admin_senha);
-  getchar(); // Limpa o buffer de entrada
+  fgets(admin_senha, sizeof(admin_senha), stdin);
+  admin_senha[strcspn(admin_senha, "\n")] = 0; // Remove o '\n'
 
   // Verifica a autenticação do administrador
   if (login_admin(admin_login, admin_senha))
   {
-    printf("\nCompra autorizada!\n");
-    printf("Adicionando produto: %s\n", nome);
-    printf("Total de produtos antes da compra: %d\n", totalProdutos);
+    printf("\n\033[1;92m===== Compra Autorizada! =====\033[0m\n\n");
 
-    // Chamada correta da função adicionar_ao_estoque
+    // Chamada para adicionar ao estoque
     adicionar_ao_estoque(nome, categoria, preco, codigoBarras, fornecedor, validade, qtdMinima, quantidade);
 
-    printf("Total de produtos após adicionar: %d\n", totalProdutos);
-    printf("\033[1;35m"); // Aplicando cor magenta
-    printf("\nPressione ENTER para continuar...\n");
+    printf("\n\033[1;35mPressione ENTER para continuar...\n");
     getchar(); // Pausa até que o usuário pressione enter
   }
   else
   {
-    printf("\nAutenticação falhou. Compra não autorizada.\n");
-    printf("\033[1;35m"); // Aplicando cor magenta
-    printf("\nPressione ENTER para continuar...\n");
+    printf("\n\033[1;31m===== Compra Não Autorizada! =====\033[0m\n\n");
+
+    printf("\n\033[1;35mPressione ENTER para continuar...\n");
     getchar(); // Pausa até que o usuário pressione enter
   }
 }
