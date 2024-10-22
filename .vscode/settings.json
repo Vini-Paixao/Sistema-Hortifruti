@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "utilidades.h": "c"
+        "utilidades.h": "c",
+        "estoque.h": "c",
+        "locale.h": "c"
     }
 }

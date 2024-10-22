@@ -94,7 +94,7 @@ void buscarProduto(char nome[])
     if (strcasecmp(produtos[i].nome, nome) == 0)
     {
       encontrado = 1;
-      printf("Produto encontrado:\n");
+      printf("\n\n\033[1;34m===== Produto Encontrado =====\033[0m\n\n");
       printf("Nome: %s\n", produtos[i].nome);
       printf("Categoria: %s\n", produtos[i].categoria);
       printf("Preço: R$ %.2f\n", produtos[i].preco);
@@ -111,7 +111,7 @@ void buscarProduto(char nome[])
 
   if (!encontrado)
   {
-    printf("\nProduto %s o encontrado!\n", nome);
+    printf("\nProduto %s não encontrado!\n", nome);
   }
 
   printf("\033[1;34m"); // Aplicando cor azul
