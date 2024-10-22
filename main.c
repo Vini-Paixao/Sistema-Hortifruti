@@ -11,16 +11,15 @@
 
 int main()
 {
-    srand(time(NULL)); // Inicializa o gerador de números aleatórios com base no tempo
+    srand(time(NULL));       // Inicializa o gerador de números aleatórios com base no tempo
     configurarConsoleUTF8(); // Configura o console para UTF-8
-    inicializarProdutos(); // Inicializando produtos base do Estoque
+    inicializarProdutos();   // Inicializando produtos base do Estoque
 
     int opcao = 0; // Opção que o usuário vai selecionar e começa em 0
     while (opcao != 4)
     {
         limparTela();
-        menuPrincipal("Sistema Hortifruti");
-
+        menuPrincipal();
         printf("\n\nDigite a opção desejada: ");
         scanf("%d", &opcao);
 
@@ -33,16 +32,19 @@ int main()
         switch (opcao)
         {
         case 1:
-            menuEstoque("Gestão de Estoque");
+            menuEstoque();
             break;
         case 2:
-            menuCaixa("Sistema do Caixa");
+            menuCaixa();
             break;
         case 3:
-            menuCompras("Sistema de Compras");
+            menuCompras();
             break;
         case 4:
             printf("\nSistema encerrado.\n");
+            break;
+        default:
+            printf("Opção inválida, tente novamente.\n");
             break;
         }
     }

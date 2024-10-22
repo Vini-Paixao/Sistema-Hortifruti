@@ -1,6 +1,6 @@
-#include "menus.h"   // Incluímos o cabeçalho menus.h
-#include "compra.h"  // Incluímos compra.h para adicionar ao Estoque
-#include "estoque.h" // Incluímos estoque.h para usar Produto
+#include "menus.h"      // Incluímos o cabeçalho menus.h
+#include "compra.h"     // Incluímos compra.h para adicionar ao Estoque
+#include "estoque.h"    // Incluímos estoque.h para usar Produto
 #include "utilidades.h" // Incluímos utilidades.h para usar as Funções Auxiliares
 
 #include <stdio.h>
@@ -8,8 +8,9 @@
 #include <string.h>
 
 // Definição da função menuPrincipal
-void menuPrincipal(char titulo[])
+void menuPrincipal()
 {
+  char titulo[20] = "Sistema Hortifácil";
   printf("\033[1;32m"); // Aplicando cor verde
   int largura = 32;
   int paddingTitulo = (largura - strlen(titulo)) / 2;
@@ -25,7 +26,7 @@ void menuPrincipal(char titulo[])
   printf("%s", titulo);
   for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
     printf(" ");
-  printf("║");
+  printf(" ║");
 
   printf("\n\t╠");
   for (int i = 0; i < largura; i++)
@@ -44,8 +45,9 @@ void menuPrincipal(char titulo[])
 }
 
 // Definição da função menuEstoque
-void menuEstoque(char titulo[])
+void menuEstoque()
 {
+  char titulo[20] = "Gestão de Estoque";
   printf("\033[1;34m"); // Aplicando cor azul
   int opcao = 0;
   char nome[50];
@@ -53,7 +55,7 @@ void menuEstoque(char titulo[])
   while (opcao != 5)
   {
     limparTela(); // Limpa a tela antes de mostrar o menu
-    int largura = 32;
+    int largura = 31;
     int paddingTitulo = (largura - strlen(titulo)) / 2;
 
     printf("\n\t╔");
@@ -73,11 +75,11 @@ void menuEstoque(char titulo[])
     for (int i = 0; i < largura; i++)
       printf("═");
     printf("╣");
-    printf("\n\t║      1 - Listar Produtos       ║");
-    printf("\n\t║      2 - Buscar Produto        ║");
-    printf("\n\t║      3 - Remover Produto       ║");
-    printf("\n\t║      4 - Editar Produto        ║");
-    printf("\n\t║      5 - Voltar                ║");
+    printf("\n\t║      1 - Listar Produtos      ║");
+    printf("\n\t║      2 - Buscar Produto       ║");
+    printf("\n\t║      3 - Remover Produto      ║");
+    printf("\n\t║      4 - Editar Produto       ║");
+    printf("\n\t║      5 - Voltar               ║");
 
     printf("\n\t╚");
     for (int i = 0; i < largura; i++)
@@ -117,14 +119,15 @@ void menuEstoque(char titulo[])
   }
 }
 
-void menuCaixa(char titulo[])
+void menuCaixa()
 {
+  char titulo[20] = "Gestão de Vendas";
   printf("\033[1;31m"); // Aplicando cor vermelha
   int opcao = 0;
   while (opcao != 5)
   {
     limparTela();
-    int largura = 32;
+    int largura = 31;
     int paddingTitulo = (largura - strlen(titulo)) / 2;
 
     printf("\n\t╔");
@@ -138,17 +141,17 @@ void menuCaixa(char titulo[])
     printf("%s", titulo);
     for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
       printf(" ");
-    printf("║");
+    printf(" ║");
 
     printf("\n\t╠");
     for (int i = 0; i < largura; i++)
       printf("═");
     printf("╣");
-    printf("\n\t║      1 - Vender Produto        ║");
-    printf("\n\t║      2 - Aplicar Desconto      ║");
-    printf("\n\t║      3 - Consultar Preço       ║");
-    printf("\n\t║      4 - Cancelar Produto      ║");
-    printf("\n\t║      5 - Voltar                ║");
+    printf("\n\t║      1 - Vender Produto       ║");
+    printf("\n\t║      2 - Aplicar Desconto     ║");
+    printf("\n\t║      3 - Consultar Preço      ║");
+    printf("\n\t║      4 - Cancelar Produto     ║");
+    printf("\n\t║      5 - Voltar               ║");
 
     printf("\n\t╚");
     for (int i = 0; i < largura; i++)
@@ -182,14 +185,15 @@ void menuCaixa(char titulo[])
   }
 }
 
-void menuCompras(char titulo[])
+void menuCompras()
 {
+  char titulo[20] = "Gestão de Compras";
   printf("\033[1;35m"); // Aplicando cor magenta
   int opcao = 0;
   while (opcao != 5)
   {
     limparTela();
-    int largura = 32;
+    int largura = 31;
     int paddingTitulo = (largura - strlen(titulo)) / 2;
 
     printf("\n\t╔");
@@ -203,17 +207,17 @@ void menuCompras(char titulo[])
     printf("%s", titulo);
     for (size_t i = 0; i < largura - paddingTitulo - strlen(titulo); i++)
       printf(" ");
-    printf("║");
+    printf(" ║");
 
     printf("\n\t╠");
     for (int i = 0; i < largura; i++)
       printf("═");
     printf("╣");
-    printf("\n\t║     1 - Comprar Produto        ║");
-    printf("\n\t║     2 - Gerar Relatório        ║");
-    printf("\n\t║     3 - Consultar Pedidos      ║");
-    printf("\n\t║     4 - Histórico de Compras   ║");
-    printf("\n\t║     5 - Voltar                 ║");
+    printf("\n\t║     1 - Comprar Produto       ║");
+    printf("\n\t║     2 - Gerar Relatório       ║");
+    printf("\n\t║     3 - Consultar Pedidos     ║");
+    printf("\n\t║     4 - Histórico Compras     ║");
+    printf("\n\t║     5 - Voltar                ║");
 
     printf("\n\t╚");
     for (int i = 0; i < largura; i++)

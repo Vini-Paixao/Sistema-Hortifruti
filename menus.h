@@ -3,9 +3,9 @@
 
 #include "estoque.h"
 
-void menuEstoque(char titulo[]);
-void menuPrincipal(char titulo[]);
-void menuCaixa(char titulo[]);
-void menuCompras(char titulo[]);
+void menuEstoque();
+void menuPrincipal();
+void menuCaixa();
+void menuCompras();
 
 #endif
