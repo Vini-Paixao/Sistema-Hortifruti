@@ -5,13 +5,11 @@
 #include <time.h>
 #include <locale.h>
 
-
 #include "estoque.h"
 #include "compra.h"
 
 extern Produto produtos[100]; // Array global de produtos
-extern int totalProdutos; // Contador global de produtos no estoque
-
+extern int totalProdutos;     // Contador global de produtos no estoque
 
 void limparTela()
 {
@@ -22,7 +20,7 @@ void limparTela()
 #endif
 }
 
-//login do administrador
+// login do administrador
 int login_admin(char login[], char senha[])
 {
   const char admin_login[] = "admin";
@@ -36,20 +34,24 @@ int login_admin(char login[], char senha[])
 }
 
 // Função que limpa o buffer
-void limpar_buffer() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+void limpar_buffer()
+{
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+    ;
 }
 
 void configurarConsoleUTF8()
 {
-    setlocale(LC_ALL, "Portuguese.UTF-8");
-    SetConsoleOutputCP(65001); // Força a saída para UTF-8 no Windows
+  // Configura o terminal para UTF-8
+  SetConsoleOutputCP(CP_UTF8);                  // Saída em UTF-8
+  SetConsoleCP(CP_UTF8);                        // Entrada em UTF-8
+  setlocale(LC_ALL, "Portuguese_Brazil.UTF-8"); // Configura o locale para português do Brasil com UTF-8
 }
 
 long gerar_codigo_barras()
 {
-  int prefixo = 2024;                             // Define os 4 primeiros dígitos
+  int prefixo = 15735;                            // Define os 5 primeiros dígitos
   int sufixo = rand() % 10000;                    // Gera os 4 últimos dígitos aleatórios (0 a 9999)
   long codigo_barras = prefixo * 10000L + sufixo; // Combina prefixo e sufixo
   return codigo_barras;
@@ -58,6 +60,15 @@ long gerar_codigo_barras()
 // Função para calcular a diferença em dias entre duas datas
 int diferenca_em_dias(struct tm data1, struct tm data2)
 {
+  // Zerar horas, minutos e segundos para ambas as datas
+  data1.tm_hour = 0;
+  data1.tm_min = 0;
+  data1.tm_sec = 0;
+
+  data2.tm_hour = 0;
+  data2.tm_min = 0;
+  data2.tm_sec = 0;
+
   // Converter as datas em segundos desde uma data de referência
   time_t tempo1 = mktime(&data1);
   time_t tempo2 = mktime(&data2);
@@ -93,7 +104,7 @@ void inicializarProdutos()
   strcpy(produtos[1].categoria, "Frutas");
   produtos[1].preco = 2.50;
   produtos[1].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[1].fornecedor, "FrutasBR");
+  strcpy(produtos[1].fornecedor, "Frutas BR");
   strcpy(produtos[1].validade, "15/11/2024");
   produtos[1].qtdMinima = 20;
   produtos[1].quantidade = 20;
@@ -102,7 +113,7 @@ void inicializarProdutos()
   strcpy(produtos[2].categoria, "Legumes");
   produtos[2].preco = 4.20;
   produtos[2].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[2].fornecedor, "LegumesVerde");
+  strcpy(produtos[2].fornecedor, "Legumes Verde");
   strcpy(produtos[2].validade, "20/12/2024");
   produtos[2].qtdMinima = 15;
   produtos[2].quantidade = 20;

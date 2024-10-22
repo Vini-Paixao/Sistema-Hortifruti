@@ -28,6 +28,11 @@ void listarProdutos()
 
   for (int i = 0; i < totalProdutos; i++)
   {
+    // Converter a data de validade do produto para struct tm
+    struct tm data_validade = string_para_data(produtos[i].validade);
+    // Calcular a diferença entre a data de validade e a data atual
+    int dias_restantes = diferenca_em_dias(data_validade, data_atual);
+
     printf("\n\n\033[1;34m===== Produto %d =====\033[0m\n\n", i + 1);
     printf("Nome: %s\n", produtos[i].nome);
     printf("Categoria: %s\n", produtos[i].categoria);
@@ -39,12 +44,6 @@ void listarProdutos()
     printf("Data de Validade: %s\n", produtos[i].validade);
     printf("Quantidade em Estoque: %d\n", produtos[i].quantidade);
     printf("Quantidade Mínima em Estoque: %d\n", produtos[i].qtdMinima);
-
-    // Converter a data de validade do produto para struct tm
-    struct tm data_validade = string_para_data(produtos[i].validade);
-
-    // Calcular a diferença entre a data de validade e a data atual
-    int dias_restantes = diferenca_em_dias(data_validade, data_atual);
 
     printf("\n\033[1;34m===== Verificação de Validade =====\033[0m\n\n");
     // Verificações de validade
