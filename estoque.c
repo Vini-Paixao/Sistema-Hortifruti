@@ -44,6 +44,7 @@ void listarProdutos()
     printf("Data de Validade: %s\n", produtos[i].validade);
     printf("Quantidade em Estoque: %d\n", produtos[i].quantidade);
     printf("Quantidade Mínima em Estoque: %d\n", produtos[i].qtdMinima);
+    printf("Vendido por: %d (1 = Quilo, 0 = Unidade)\n", produtos[i].vendidoPorQuilo);
 
     printf("\n\033[1;34m===== Verificação de Validade =====\033[0m\n\n");
     // Verificações de validade
@@ -104,6 +105,7 @@ void buscarProduto(char nome[])
       printf("Data de Validade: %s\n", produtos[i].validade);
       printf("Quantidade em Estoque: %d\n", produtos[i].quantidade);
       printf("Quantidade Mínima em Estoque: %d\n", produtos[i].qtdMinima);
+      printf("Vendido por: %d (1 = Quilo, 0 = Unidade)\n", produtos[i].vendidoPorQuilo);
       break;
     }
   }
@@ -142,6 +144,7 @@ void removerProduto(char nome[])
       break;
     }
   }
+  salvarEstoqueEmArquivo();
 
   if (!encontrado)
   {
@@ -186,16 +189,18 @@ void editarProduto(char nome[])
       printf("\nQuantidade anterior: %d\n", produtos[i].quantidade);
       printf("Digite a nova quantidade em estoque: ");
       scanf("%d", &produtos[i].quantidade);
+      printf("Vendido anteriormente por: %d (1 = Quilo, 0 = Unidade)\n", produtos[i].vendidoPorQuilo);
+      printf("Vender agora por: ");
+      scanf("%d", &produtos[i].vendidoPorQuilo);
       printf("Produto atualizado com sucesso!\n");
       break;
     }
   }
-
+  salvarEstoqueEmArquivo();
   if (!encontrado)
   {
     printf("Produto %s não encontrado!\n", nome);
   }
-
   printf("\033[1;34m"); // Aplicando cor azul
   printf("\nPressione ENTER para continuar...\n");
   getchar(); // Pausa até que o usuário pressione enter

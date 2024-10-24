@@ -11,6 +11,48 @@
 extern Produto produtos[100]; // Array global de produtos
 extern int totalProdutos;     // Contador global de produtos no estoque
 
+void salvarEstoqueEmArquivo()
+{
+  FILE *arquivo = fopen("estoque.txt", "w");
+  if (arquivo == NULL)
+  {
+    printf("Erro ao abrir o arquivo de estoque!\n");
+    return;
+  }
+
+  for (int i = 0; i < totalProdutos; i++)
+  {
+    fprintf(arquivo, "%s,%s,%.2f,%ld,%s,%s,%d,%d,%d\n",
+            produtos[i].nome, produtos[i].categoria, produtos[i].preco, produtos[i].codigoBarras,
+            produtos[i].fornecedor, produtos[i].validade, produtos[i].quantidade, produtos[i].qtdMinima, produtos[i].vendidoPorQuilo);
+  }
+
+  fclose(arquivo);
+  printf("Estoque salvo com sucesso!\n");
+}
+
+void carregarEstoqueDeArquivo()
+{
+  FILE *arquivo = fopen("estoque.txt", "r");
+  if (arquivo == NULL)
+  {
+    printf("Erro ao abrir o arquivo de estoque!\n");
+    return;
+  }
+
+  totalProdutos = 0;
+  while (fscanf(arquivo, "%[^,],%[^,],%f,%ld,%[^,],%[^,],%d,%d,%d\n", produtos[totalProdutos].nome, produtos[totalProdutos].categoria,
+                &produtos[totalProdutos].preco, &produtos[totalProdutos].codigoBarras, produtos[totalProdutos].fornecedor,
+                produtos[totalProdutos].validade, &produtos[totalProdutos].quantidade, &produtos[totalProdutos].qtdMinima,
+                &produtos[totalProdutos].vendidoPorQuilo) != EOF)
+  {
+    totalProdutos++;
+  }
+
+  fclose(arquivo);
+  printf("Estoque carregado com sucesso!\n");
+}
+
 void limparTela()
 {
 #ifdef _WIN32
@@ -99,6 +141,7 @@ void inicializarProdutos()
   strcpy(produtos[0].validade, "10/10/2024");
   produtos[0].qtdMinima = 10;
   produtos[0].quantidade = 20;
+  produtos[0].vendidoPorQuilo = 1;
 
   strcpy(produtos[1].nome, "Banana");
   strcpy(produtos[1].categoria, "Frutas");
@@ -108,6 +151,7 @@ void inicializarProdutos()
   strcpy(produtos[1].validade, "15/11/2024");
   produtos[1].qtdMinima = 20;
   produtos[1].quantidade = 20;
+  produtos[1].vendidoPorQuilo = 0;
 
   strcpy(produtos[2].nome, "Tomate");
   strcpy(produtos[2].categoria, "Legumes");
@@ -117,6 +161,8 @@ void inicializarProdutos()
   strcpy(produtos[2].validade, "20/12/2024");
   produtos[2].qtdMinima = 15;
   produtos[2].quantidade = 20;
+  produtos[2].vendidoPorQuilo = 1;
 
   totalProdutos = 3; // Atualizando o total de produtos
+  salvarEstoqueEmArquivo();
 }

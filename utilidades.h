@@ -8,6 +8,8 @@ void inicializarProdutos();
 long gerar_codigo_barras();
 int diferenca_em_dias(struct tm data1, struct tm data2);
 struct tm string_para_data(char *data_str);
+void salvarEstoqueEmArquivo();
+void carregarEstoqueDeArquivo();
 
 // Funções Main
 void configurarConsoleUTF8();

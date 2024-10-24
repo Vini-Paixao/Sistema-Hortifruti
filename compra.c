@@ -10,7 +10,7 @@ extern int totalProdutos; // Contador do total de produtos no estoque
 
 void adicionar_ao_estoque(char nome[], char categoria[], float preco,
                           long codigoBarras, char fornecedor[], char validade[],
-                          int qtdMinima, int quantidade)
+                          int qtdMinima, int quantidade, int vendidoPorQuilo)
 {
   configurarConsoleUTF8();
   if (totalProdutos >= 100) // Limite de produtos
@@ -29,9 +29,13 @@ void adicionar_ao_estoque(char nome[], char categoria[], float preco,
   strcpy(novoProduto.validade, validade);
   novoProduto.qtdMinima = qtdMinima;
   novoProduto.quantidade = quantidade;
+  novoProduto.vendidoPorQuilo = vendidoPorQuilo; // Definir se é por quilo ou unidade
 
   produtos[totalProdutos] = novoProduto; // Adiciona no array global
-  totalProdutos++;                       // Atualiza o total de produtos
+
+  totalProdutos++; // Atualiza o total de produtos
+
+  salvarEstoqueEmArquivo();
 
   printf("Produto '%s' adicionado ao estoque com sucesso!\n", nome);
 }
@@ -47,6 +51,7 @@ void comprar_produto()
   char validade[11];
   int qtdMinima;
   int quantidade;
+  int vendidoPorQuilo;
   char admin_login[20], admin_senha[20];
 
   configurarConsoleUTF8();
@@ -94,6 +99,11 @@ void comprar_produto()
   scanf("%d", &quantidade);
   limpar_buffer(); // Limpa o buffer de entrada
 
+  // Perguntar se é vendido por quilo ou unidade
+  printf("O produto será vendido por quilo? (1 = Sim, 0 = Não): ");
+  scanf("%d", &vendidoPorQuilo);
+  limpar_buffer();
+
   // Solicitar a autenticação do administrador
   printf("\n\033[1;35m===== Autorização do Responsável =====\033[0m\n\n");
 
@@ -111,7 +121,7 @@ void comprar_produto()
     printf("\n\033[1;92m===== Compra Autorizada! =====\033[0m\n\n");
 
     // Chamada para adicionar ao estoque
-    adicionar_ao_estoque(nome, categoria, preco, codigoBarras, fornecedor, validade, qtdMinima, quantidade);
+    adicionar_ao_estoque(nome, categoria, preco, codigoBarras, fornecedor, validade, qtdMinima, quantidade, vendidoPorQuilo);
 
     printf("\n\033[1;35mPressione ENTER para continuar...\n");
     getchar(); // Pausa até que o usuário pressione enter

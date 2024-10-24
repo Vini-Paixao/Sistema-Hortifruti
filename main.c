@@ -11,9 +11,10 @@
 
 int main()
 {
-    srand(time(NULL));       // Inicializa o gerador de números aleatórios com base no tempo
-    configurarConsoleUTF8(); // Configura o console para UTF-8
-    inicializarProdutos();   // Inicializando produtos base do Estoque
+    srand(time(NULL));          // Inicializa o gerador de números aleatórios com base no tempo
+    configurarConsoleUTF8();    // Configura o console para UTF-8
+    inicializarProdutos();      // Inicializando produtos base do Estoque
+    carregarEstoqueDeArquivo(); // Carrega o arquivo de Estoque
 
     int opcao = 0; // Opção que o usuário vai selecionar e começa em 0
     while (opcao != 4)
