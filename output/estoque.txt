@@ -1,3 +1,3 @@
-Maçã,Frutas,3.99,157353306,Hortifácil,10/10/2024,20,10,1
-Banana,Frutas,2.50,157353187,Frutas BR,15/11/2024,20,20,0
-Tomate,Legumes,4.20,157356680,Legumes Verde,20/12/2024,20,15,1
+Maçã,Frutas,3.99,157354031,Hortifácil,10/10/2024,20,10,1
+Banana,Frutas,2.50,157357269,Frutas BR,15/11/2024,20,20,0
+Tomate,Legumes,4.20,157357598,Legumes Verde,20/12/2024,20,15,1

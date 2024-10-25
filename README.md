@@ -14,10 +14,10 @@ Este é um sistema de **Gestão de Hortifruti**, desenvolvido em C para o Projet
   - **Remover Produto**: Remove um produto específico do estoque com base no seu nome
   - **Editar Produto**: Permite editar as informações de um produto no estoque.
 - **Sistema de Caixa:**
-  - **Vender Produto**: Efetuar venda para o cliente final.
-  - **Aplicar Desconto**: Aplicar desconto manual como em casos de campanha.
-  - **Consultar Preço**: Faz o cálculo do valor do produto pelo peso.
-  - **Cancelar Produto**: Limpa o "carrinho" cancelando a última venda.
+  - **Iniciar Venda**: Inicia um "carrinho" para armazenar os produtos dos clientes.
+  - **Ver Carrinho**: Visualiza o carrinho atual do cliente.
+  - **Finalizar Venda**: Fecha o carrinho do cliente e pode aplicar descontos ou não.
+  - **Histórico de Vendas**: Consulta o histórico completo das vendas.
 - **Sistema de Compras:**
   - **Comprar Produto**: Faz a compra de um produto para adicionar no estoque.
   - **Gerar Relatório**: Gerar relatório das últimas comprar.
@@ -26,9 +26,13 @@ Este é um sistema de **Gestão de Hortifruti**, desenvolvido em C para o Projet
 
 ## Demonstração
 
-Confira em primeira mão a versão Beta 1.0: [Clique aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/download/Beta/sistema-hortifruti.exe)
+Tem 2 métodos para executar este programa:
 
-- Essa versão contempla o módulo **Gestão de Estoque** completa e funcional e o começo do **Sistema de Compras**
+- Pode abrir a sua IDE de preferência, certificarsse de ter o compilador em C como o ``MinGW gcc`` e executar o seguinte comando no Terminal:
+
+  ```gcc -Wall -Wextra -g3 "main.c" "estoque.c" "menus.c" "utilidades.c" "compra.c" "caixa.c" -o "output\sistema-hortifruti.exe"```
+
+- Ou pode executar o arquivo .exe disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases)
 
 ## Licença
 
