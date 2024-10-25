@@ -60,7 +60,7 @@ Tem 2 métodos para executar este programa:
 
   Execute o arquivo `sistema-hortifruti.exe`
 
-- Ou você pode baixer e executar o arquivo `sistema-hortifruti.exe` direto disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases)
+- Ou você pode baixer e executar o arquivo `sistema-hortifruti.exe` direto disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/tag/Beta_2.0)
 
 ## Feedback
 
