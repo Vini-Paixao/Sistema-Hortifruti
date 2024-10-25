@@ -22,12 +22,24 @@ int main()
         printf("\n\nDigite a opção desejada: ");
         scanf("%d", &opcao);
 
+        while (getchar() != '\n')
+            ; // Limpa o buffer do scanf
+
+        // Verifica o código Admin antes das demais opções
+        if (opcao == 14042004)
+        {
+            printf("\n\033[1;32m===== Código Admin Secreto =====\033[0m\n\n");
+            gerarProdutosAleatorios();
+        }
+
+        // Verifica se a opção é válida (entre 1 e 4)
         if (opcao < 1 || opcao > 4)
         {
             printf("\nOpção inválida! Tente novamente.\n");
             continue;
         }
 
+        // Processa as opções do menu principal
         switch (opcao)
         {
         case 1:
@@ -46,11 +58,13 @@ int main()
             printf("\n\nProjeto Integrador Multidisciplinar (PIM) - 2024");
             printf("\n\nDigite ENTER para encerrar...");
             getchar();
-            getchar();
             printf("\nSistema encerrado.\n");
             break;
         default:
-            printf("Opção inválida, tente novamente.\n");
+            printf("Opção inválida, pressione ENTER para tente novamente.\n");
+            getchar();
+            getchar();
+            printf("\033[0;32m"); // Aplicando cor verde
             break;
         }
     }

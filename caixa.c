@@ -142,6 +142,10 @@ void finalizarCompra()
     if (totalItensCarrinho == 0)
     {
         printf("Carrinho vazio. Nenhum produto para finalizar.\n");
+        printf("\033[1;31mPressione ENTER para continuar...\n\033[0m");
+        printf("\033[0;31m"); // Aplicando cor vermelha
+        getchar();
+        getchar();
         return;
     }
 

@@ -57,7 +57,7 @@ void comprar_produto()
   configurarConsoleUTF8();
 
   // Captura as informações do produto
-  printf("\n\033[1;35m===== Comprar Produto =====\033[0m\n\n");
+  printf("\n\033[1;36m===== Comprar Produto =====\033[0m\n\n");
 
   // Captura o nome do produto
   printf("Digite o nome do produto: ");
@@ -105,7 +105,7 @@ void comprar_produto()
   limpar_buffer();
 
   // Solicitar a autenticação do administrador
-  printf("\n\033[1;35m===== Autorização do Responsável =====\033[0m\n\n");
+  printf("\n\033[1;36m===== Autorização do Responsável =====\033[0m\n\n");
 
   printf("Digite o login: ");
   fgets(admin_login, sizeof(admin_login), stdin);
@@ -123,14 +123,14 @@ void comprar_produto()
     // Chamada para adicionar ao estoque
     adicionar_ao_estoque(nome, categoria, preco, codigoBarras, fornecedor, validade, qtdMinima, quantidade, vendidoPorQuilo);
 
-    printf("\n\033[1;35mPressione ENTER para continuar...\n");
+    printf("\n\033[1;36mPressione ENTER para continuar...\n");
     getchar(); // Pausa até que o usuário pressione enter
   }
   else
   {
     printf("\n\033[1;31m===== Compra Não Autorizada! =====\033[0m\n\n");
 
-    printf("\n\033[1;35mPressione ENTER para continuar...\n");
+    printf("\n\033[1;36mPressione ENTER para continuar...\n");
     getchar(); // Pausa até que o usuário pressione enter
   }
 }

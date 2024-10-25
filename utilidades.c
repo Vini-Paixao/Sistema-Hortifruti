@@ -137,10 +137,10 @@ void inicializarProdutos()
   strcpy(produtos[0].categoria, "Frutas");
   produtos[0].preco = 3.99;
   produtos[0].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[0].fornecedor, "Hortifácil");
-  strcpy(produtos[0].validade, "10/10/2024");
-  produtos[0].qtdMinima = 10;
-  produtos[0].quantidade = 20;
+  strcpy(produtos[0].fornecedor, "Fazenda da Mônica");
+  strcpy(produtos[0].validade, "10/12/2024");
+  produtos[0].qtdMinima = 150;
+  produtos[0].quantidade = 200;
   produtos[0].vendidoPorQuilo = 1;
 
   strcpy(produtos[1].nome, "Banana");
@@ -149,20 +149,99 @@ void inicializarProdutos()
   produtos[1].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[1].fornecedor, "Frutas BR");
   strcpy(produtos[1].validade, "15/11/2024");
-  produtos[1].qtdMinima = 20;
-  produtos[1].quantidade = 20;
+  produtos[1].qtdMinima = 450;
+  produtos[1].quantidade = 800;
   produtos[1].vendidoPorQuilo = 0;
 
   strcpy(produtos[2].nome, "Tomate");
-  strcpy(produtos[2].categoria, "Legumes");
+  strcpy(produtos[2].categoria, "Frutas");
   produtos[2].preco = 4.20;
   produtos[2].codigoBarras = gerar_codigo_barras();
-  strcpy(produtos[2].fornecedor, "Legumes Verde");
+  strcpy(produtos[2].fornecedor, "Frutas BR");
   strcpy(produtos[2].validade, "20/12/2024");
-  produtos[2].qtdMinima = 15;
-  produtos[2].quantidade = 20;
+  produtos[2].qtdMinima = 360;
+  produtos[2].quantidade = 400;
   produtos[2].vendidoPorQuilo = 1;
 
   totalProdutos = 3; // Atualizando o total de produtos
+  salvarEstoqueEmArquivo();
+}
+
+int existeProdutoComNome(const char *nome)
+{
+  for (int i = 0; i < totalProdutos; i++)
+  {
+    if (strcmp(produtos[i].nome, nome) == 0)
+    {
+      return 1; // Nome já existe
+    }
+  }
+  return 0; // Nome não existe, é único
+}
+
+void gerarProdutosAleatorios()
+{
+  const char *frutas[] = {"Mamão", "Melão", "Abacaxi", "Uva", "Laranja", "Manga", "Melancia", "Pera", "Caju", "Kiwi", "Amora", "Carambola", "Pêssego", "Framboesa", "Goiaba", "Guaraná", "Jabuticaba", "Lichia", "Abacate"};
+  const char *verduras[] = {"Alface", "Couve", "Espinafre", "Rúcula", "Salsa", "Coentro", "Cenoura", "Brócolis", "Pepino", "Abóbora", "Escarola", "Couve Flor", "Pimentão", "Alcachofra", "Aspargo", "Palmito", "Milho", "Jiló"};
+  const char *fornecedores[] = {"Hortifruti BR", "Verdura Natural", "Frutas BR", "Hortifácil", "Legumes Verde"};
+
+  srand(time(NULL)); // Inicializa o gerador de números aleatórios
+
+  for (int i = 0; i < 27; i++)
+  {
+    Produto novoProduto;
+    int tipo, indiceNome;
+    char nomeProduto[50];
+
+    // Gera um nome único
+    do
+    {
+      tipo = rand() % 2;
+      if (tipo == 0)
+      { // Fruta
+        indiceNome = rand() % (sizeof(frutas) / sizeof(frutas[0]));
+        strcpy(nomeProduto, frutas[indiceNome]);
+      }
+      else
+      { // Verdura
+        indiceNome = rand() % (sizeof(verduras) / sizeof(verduras[0]));
+        strcpy(nomeProduto, verduras[indiceNome]);
+      }
+    } while (existeProdutoComNome(nomeProduto)); // Verifica se o nome é único
+
+    strcpy(novoProduto.nome, nomeProduto);
+    strcpy(novoProduto.categoria, tipo == 0 ? "Frutas" : "Verduras");
+    novoProduto.vendidoPorQuilo = rand() % 2; // 1 = por quilo, 0 = por unidade
+
+    // Define um preço aleatório entre R$1,00 e R$15,00
+    novoProduto.preco = (float)(rand() % 1401 + 100) / 100;
+
+    // Gera automaticamente o código de barras
+    novoProduto.codigoBarras = gerar_codigo_barras();
+
+    // Define um fornecedor aleatório
+    strcpy(novoProduto.fornecedor, fornecedores[rand() % 5]);
+
+    // Define uma validade aleatória (entre hoje e um ano a partir de hoje)
+    int diasValidade = rand() % 365;
+    time_t t = time(NULL) + diasValidade * 24 * 3600;
+    struct tm validade = *localtime(&t);
+    snprintf(novoProduto.validade, 11, "%02d/%02d/%04d", validade.tm_mday, validade.tm_mon + 1, validade.tm_year + 1900);
+
+    // Define a quantidade mínima entre 5 e 20 e a quantidade em estoque entre 10 e 100
+    novoProduto.qtdMinima = rand() % 106 + 100;
+    novoProduto.quantidade = rand() % 201 + 300;
+
+    // Adiciona o produto ao array global
+    produtos[totalProdutos] = novoProduto;
+    totalProdutos++;
+  }
+
+  printf("30 produtos únicos foram gerados e adicionados ao estoque.\n");
+
+  printf("\n\033[1;32mPressione ENTER para continuar...\n");
+  getchar();
+
+  // Salvar o estoque no arquivo após a geração
   salvarEstoqueEmArquivo();
 }

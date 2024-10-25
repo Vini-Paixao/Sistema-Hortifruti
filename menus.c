@@ -114,7 +114,10 @@ void menuEstoque()
       printf("Voltando ao menu principal...\n");
       break;
     default:
-      printf("Opção inválida, tente novamente.\n");
+      printf("Opção inválida, pressione ENTER para tente novamente.\n");
+      getchar();
+      getchar();
+      printf("\033[0;34m"); // Aplicando cor azul
       break;
     }
   }
@@ -180,7 +183,10 @@ void menuCaixa()
       printf("Voltando ao menu principal...\n");
       break;
     default:
-      printf("Opção inválida, tente novamente.\n");
+      printf("Opção inválida, pressione ENTER para tente novamente.\n");
+      getchar();
+      getchar();
+      printf("\033[0;31m"); // Aplicando cor vermelha
       break;
     }
   }
@@ -246,7 +252,10 @@ void menuCompras()
       printf("Voltando ao menu principal...\n");
       break;
     default:
-      printf("Opção inválida, tente novamente.\n");
+      printf("Opção inválida, pressione ENTER para tente novamente.\n");
+      getchar();
+      getchar();
+      printf("\033[0;36m"); // Aplicando cor Ciano
       break;
     }
   }
