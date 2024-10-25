@@ -1,6 +1,4 @@
-#include "estoque.h"
 #include "menus.h"
-#include "compra.h"
 #include "utilidades.h"
 
 #include <stdio.h>
@@ -42,6 +40,13 @@ int main()
             menuCompras();
             break;
         case 4:
+            printf("\n\033[1;34mObrigado por Prestigiar o nosso Projeto!!\n");
+            printf("\nDesenvolvido por Marcus Paixão\033[1;0m\n");
+            printf("\nIntegrantes do Grupo -\nAlexandre\nLuigi\nItalo\nJonathan\nJoão\nVitor");
+            printf("\n\nProjeto Integrador Multidisciplinar (PIM) - 2024");
+            printf("\n\nDigite ENTER para encerrar...");
+            getchar();
+            getchar();
             printf("\nSistema encerrado.\n");
             break;
         default:

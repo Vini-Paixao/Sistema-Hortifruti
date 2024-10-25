@@ -1,5 +1,6 @@
 #include "menus.h"      // Incluímos o cabeçalho menus.h
 #include "compra.h"     // Incluímos compra.h para adicionar ao Estoque
+#include "caixa.h"      // Incluímos compra.h para vender do Estoque
 #include "estoque.h"    // Incluímos estoque.h para usar Produto
 #include "utilidades.h" // Incluímos utilidades.h para usar as Funções Auxiliares
 
@@ -11,7 +12,7 @@
 void menuPrincipal()
 {
   char titulo[20] = "Sistema Hortifácil";
-  printf("\033[1;32m"); // Aplicando cor verde
+  printf("\033[0;32m"); // Aplicando cor verde
   int largura = 32;
   int paddingTitulo = (largura - strlen(titulo)) / 2;
 
@@ -48,7 +49,7 @@ void menuPrincipal()
 void menuEstoque()
 {
   char titulo[20] = "Gestão de Estoque";
-  printf("\033[1;34m"); // Aplicando cor azul
+  printf("\033[0;34m"); // Aplicando cor azul
   int opcao = 0;
   char nome[50];
 
@@ -122,7 +123,7 @@ void menuEstoque()
 void menuCaixa()
 {
   char titulo[20] = "Gestão de Vendas";
-  printf("\033[1;31m"); // Aplicando cor vermelha
+  printf("\033[0;31m"); // Aplicando cor vermelha
   int opcao = 0;
   while (opcao != 5)
   {
@@ -147,10 +148,10 @@ void menuCaixa()
     for (int i = 0; i < largura; i++)
       printf("═");
     printf("╣");
-    printf("\n\t║      1 - Vender Produto       ║");
-    printf("\n\t║      2 - Aplicar Desconto     ║");
-    printf("\n\t║      3 - Consultar Preço      ║");
-    printf("\n\t║      4 - Cancelar Produto     ║");
+    printf("\n\t║      1 - Iniciar Venda        ║");
+    printf("\n\t║      2 - Ver Carrinho         ║");
+    printf("\n\t║      3 - Finalizar Venda      ║");
+    printf("\n\t║      4 - Histórico Vendas     ║");
     printf("\n\t║      5 - Voltar               ║");
 
     printf("\n\t╚");
@@ -164,16 +165,16 @@ void menuCaixa()
     switch (opcao)
     {
     case 1:
-      // Função para vender produto
+      venderProduto(); // Inicia venda e adiciona ao carrinho
       break;
     case 2:
-      // Função para aplicar desconto
+      verCarrinho(); // Exibe o conteúdo do carrinho
       break;
     case 3:
-      // Função para consultar preço
+      finalizarCompra(); // Finaliza a compra e salva no arquivo
       break;
     case 4:
-      // Função para cancelar produto
+      mostrarHistoricoVendas(); // Exibe o histórico de vendas do arquivo
       break;
     case 5:
       printf("Voltando ao menu principal...\n");
@@ -188,7 +189,7 @@ void menuCaixa()
 void menuCompras()
 {
   char titulo[20] = "Gestão de Compras";
-  printf("\033[1;35m"); // Aplicando cor magenta
+  printf("\033[0;36m"); // Aplicando cor Ciano
   int opcao = 0;
   while (opcao != 5)
   {
