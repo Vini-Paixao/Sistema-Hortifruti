@@ -24,14 +24,14 @@ void salvarEstoqueEmArquivo()
   {
     fprintf(arquivo, "===== Estoque Hortifruti =====\n");
     fprintf(arquivo, "Nome: %s\n", produtos[i].nome);
-    fprintf(arquivo, "Categoria: %s\n", produtos[i].nome);
-    fprintf(arquivo, "Preço: %.2f\n", produtos[i].nome);
-    fprintf(arquivo, "Código de Barras: %ld\n", produtos[i].nome);
-    fprintf(arquivo, "Fornecedor: %s\n", produtos[i].nome);
-    fprintf(arquivo, "Validade: %s\n", produtos[i].nome);
-    fprintf(arquivo, "Quantidade em Estoque: %d\n", produtos[i].nome);
-    fprintf(arquivo, "Quantidade Mínima Necessária: %d\n", produtos[i].nome);
-    fprintf(arquivo, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n", produtos[i].nome);
+    fprintf(arquivo, "Categoria: %s\n", produtos[i].categoria);
+    fprintf(arquivo, "Preço: %.2f\n", produtos[i].preco);
+    fprintf(arquivo, "Código de Barras: %ld\n", produtos[i].codigoBarras);
+    fprintf(arquivo, "Fornecedor: %s\n", produtos[i].fornecedor);
+    fprintf(arquivo, "Validade: %s\n", produtos[i].validade);
+    fprintf(arquivo, "Quantidade em Estoque: %d\n", produtos[i].quantidade);
+    fprintf(arquivo, "Quantidade Mínima Necessária: %d\n", produtos[i].qtdMinima);
+    fprintf(arquivo, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n", produtos[i].vendidoPorQuilo);
   }
 
   fclose(arquivo);
