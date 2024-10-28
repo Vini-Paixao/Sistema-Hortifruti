@@ -19,10 +19,9 @@ void salvarEstoqueEmArquivo()
     printf("Erro ao abrir o arquivo de estoque!\n");
     return;
   }
-
+  fprintf(arquivo, "===== Estoque Hortifruti =====\n");
   for (int i = 0; i < totalProdutos; i++)
   {
-    fprintf(arquivo, "===== Estoque Hortifruti =====\n");
     fprintf(arquivo, "Nome: %s\n", produtos[i].nome);
     fprintf(arquivo, "Categoria: %s\n", produtos[i].categoria);
     fprintf(arquivo, "Preço: %.2f\n", produtos[i].preco);
@@ -31,7 +30,7 @@ void salvarEstoqueEmArquivo()
     fprintf(arquivo, "Validade: %s\n", produtos[i].validade);
     fprintf(arquivo, "Quantidade em Estoque: %d\n", produtos[i].quantidade);
     fprintf(arquivo, "Quantidade Mínima Necessária: %d\n", produtos[i].qtdMinima);
-    fprintf(arquivo, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n", produtos[i].vendidoPorQuilo);
+    fprintf(arquivo, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n\n", produtos[i].vendidoPorQuilo);
   }
 
   fclose(arquivo);
@@ -48,16 +47,54 @@ void carregarEstoqueDeArquivo()
   }
 
   totalProdutos = 0;
-  while (fscanf(arquivo, "%[^,],%[^,],%f,%ld,%[^,],%[^,],%d,%d,%d\n", produtos[totalProdutos].nome, produtos[totalProdutos].categoria,
-                &produtos[totalProdutos].preco, &produtos[totalProdutos].codigoBarras, produtos[totalProdutos].fornecedor,
-                produtos[totalProdutos].validade, &produtos[totalProdutos].quantidade, &produtos[totalProdutos].qtdMinima,
-                &produtos[totalProdutos].vendidoPorQuilo) != EOF)
+  char buffer[256]; // Um buffer para ler as linhas do arquivo
+
+  // Ignora a primeira linha (cabeçalho)
+  fgets(buffer, sizeof(buffer), arquivo);
+
+  while (totalProdutos < MAX_PRODUTOS && fgets(buffer, sizeof(buffer), arquivo) != NULL)
   {
-    totalProdutos++;
+    // O primeiro campo é o nome
+    if (sscanf(buffer, "Nome: %[^\n]\n", produtos[totalProdutos].nome) != 1)
+      break;
+
+    // O segundo campo é a categoria
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Categoria: %[^\n]\n", produtos[totalProdutos].categoria) != 1)
+      break;
+
+    // O terceiro campo é o preço
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Preço: %f\n", &produtos[totalProdutos].preco) != 1)
+      break;
+
+    // O quarto campo é o código de barras
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Código de Barras: %ld\n", &produtos[totalProdutos].codigoBarras) != 1)
+      break;
+
+    // O quinto campo é o fornecedor
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Fornecedor: %[^\n]\n", produtos[totalProdutos].fornecedor) != 1)
+      break;
+
+    // O sexto campo é a validade
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Validade: %[^\n]\n", produtos[totalProdutos].validade) != 1)
+      break;
+
+    // O sétimo campo é a quantidade em estoque
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Quantidade em Estoque: %d\n", &produtos[totalProdutos].quantidade) != 1)
+      break;
+
+    // O oitavo campo é a quantidade mínima necessária
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Quantidade Mínima Necessária: %d\n", &produtos[totalProdutos].qtdMinima) != 1)
+      break;
+
+    // O nono campo é se é vendido por quilo ou unidade
+    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n", &produtos[totalProdutos].vendidoPorQuilo) != 1)
+      break;
+
+    totalProdutos++; // Somente incrementa se todos os campos foram lidos corretamente
   }
 
   fclose(arquivo);
-  printf("Estoque carregado com sucesso!\n");
+  printf("Estoque carregado com sucesso! Total de produtos: %d\n", totalProdutos);
 }
 
 void limparTela()
