@@ -28,7 +28,7 @@ void salvarEstoqueEmArquivo()
   }
 
   fclose(arquivo);
-  printf("Estoque salvo com sucesso!\n");
+  printf("\n\033[1;32m===== Estoque Salvo! =====\033[0m\n\n");
 }
 
 void carregarEstoqueDeArquivo()

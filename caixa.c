@@ -99,6 +99,7 @@ void venderProduto()
 
             // Pausa para o usuário pressionar ENTER
             printf("\n\033[1;31mPressione ENTER para continuar...\n");
+            printf("\033[0;31m"); // Aplicando cor vermelha
             getchar();
             getchar(); // Captura ENTER para pausar
             return;
@@ -119,7 +120,8 @@ void verCarrinho()
 {
     if (totalItensCarrinho == 0)
     {
-        printf("Carrinho vazio.\n");
+        printf("\n\033[0;31m===== Carrinho Vazio =====\033[0m\n\n");
+        getchar();
     }
     else
     {
@@ -141,7 +143,7 @@ void finalizarCompra()
 {
     if (totalItensCarrinho == 0)
     {
-        printf("Carrinho vazio. Nenhum produto para finalizar.\n");
+        printf("\n\033[0;31m===== Carrinho Vazio =====\033[0m\n\n");
         printf("\033[1;31mPressione ENTER para continuar...\n\033[0m");
         printf("\033[0;31m"); // Aplicando cor vermelha
         getchar();
@@ -215,7 +217,11 @@ void mostrarHistoricoVendas()
     FILE *arquivo = fopen("vendas.txt", "r");
     if (arquivo == NULL)
     {
-        printf("Nenhum histórico de vendas encontrado.\n");
+        printf("\n\033[0;31m===== Nenhuma Venda Encontrada =====\033[0m\n\n");
+        printf("\033[1;31mPressione ENTER para continuar...\n\033[0m");
+        printf("\033[0;31m"); // Aplicando cor vermelha
+        getchar();
+        getchar();
         return;
     }
 

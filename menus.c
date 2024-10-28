@@ -220,9 +220,9 @@ void menuCompras()
     for (int i = 0; i < largura; i++)
       printf("═");
     printf("╣");
-    printf("\n\t║     1 - Comprar Produto       ║");
-    printf("\n\t║     2 - Gerar Relatório       ║");
-    printf("\n\t║     3 - Consultar Pedidos     ║");
+    printf("\n\t║     1 - Iniciar Compra        ║");
+    printf("\n\t║     2 - Ver Carrinho          ║");
+    printf("\n\t║     3 - Finalizar Compra      ║");
     printf("\n\t║     4 - Histórico Compras     ║");
     printf("\n\t║     5 - Voltar                ║");
 
@@ -240,13 +240,13 @@ void menuCompras()
       comprar_produto();
       break;
     case 2:
-      // Função para devolver produto
+      verCarrinhoCompra();
       break;
     case 3:
-      // Função para consultar fornecedor
+      finalizarCompraCompra();
       break;
     case 4:
-      // Função para histórico de compras
+      mostrarHistoricoCompras();
       break;
     case 5:
       printf("Voltando ao menu principal...\n");

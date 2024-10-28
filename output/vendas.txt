@@ -1,0 +1,10 @@
+===== Nova Venda =====
+Produto: Banana
+Quantidade/Peso: 5.00
+Valor: R$ 12.50
+
+Total sem desconto: R$ 12.50
+Desconto: R$ 0.00
+Total final: R$ 12.50
+======================
+
