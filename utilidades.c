@@ -22,9 +22,16 @@ void salvarEstoqueEmArquivo()
 
   for (int i = 0; i < totalProdutos; i++)
   {
-    fprintf(arquivo, "%s,%s,%.2f,%ld,%s,%s,%d,%d,%d\n",
-            produtos[i].nome, produtos[i].categoria, produtos[i].preco, produtos[i].codigoBarras,
-            produtos[i].fornecedor, produtos[i].validade, produtos[i].quantidade, produtos[i].qtdMinima, produtos[i].vendidoPorQuilo);
+    fprintf(arquivo, "===== Estoque Hortifruti =====\n");
+    fprintf(arquivo, "Nome: %s\n", produtos[i].nome);
+    fprintf(arquivo, "Categoria: %s\n", produtos[i].nome);
+    fprintf(arquivo, "Preço: %.2f\n", produtos[i].nome);
+    fprintf(arquivo, "Código de Barras: %ld\n", produtos[i].nome);
+    fprintf(arquivo, "Fornecedor: %s\n", produtos[i].nome);
+    fprintf(arquivo, "Validade: %s\n", produtos[i].nome);
+    fprintf(arquivo, "Quantidade em Estoque: %d\n", produtos[i].nome);
+    fprintf(arquivo, "Quantidade Mínima Necessária: %d\n", produtos[i].nome);
+    fprintf(arquivo, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n", produtos[i].nome);
   }
 
   fclose(arquivo);

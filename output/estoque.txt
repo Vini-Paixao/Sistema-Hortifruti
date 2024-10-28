@@ -1,3 +1,0 @@
-Maçã,Frutas,3.99,157351603,Fazenda da Mônica,10/12/2024,200,150,1
-Banana,Frutas,2.50,157353468,Frutas BR,15/11/2024,800,450,0
-Tomate,Frutas,4.20,157355573,Frutas BR,20/12/2024,400,360,1
