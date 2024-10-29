@@ -1,10 +1,11 @@
+#include "estoque.h"
+#include "utilidades.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include "estoque.h"
-#include "utilidades.h"
 
 Produto produtos[100]; // Array global de produtos
 int totalProdutos = 0; // Contador global de produtos no estoque

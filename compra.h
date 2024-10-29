@@ -32,4 +32,6 @@ void adicionar_ao_carrinho(char nome[], char categoria[], float preco, int quant
                            char validade[], char fornecedor[], int qtdMinima);
 void verCarrinhoCompra();
 
+int encontrar_produto_no_estoque(const char *nome_produto);
+
 #endif

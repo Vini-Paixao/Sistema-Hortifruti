@@ -1,3 +1,6 @@
+#include "estoque.h"
+#include "compra.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -5,8 +8,6 @@
 #include <time.h>
 #include <locale.h>
 
-#include "estoque.h"
-#include "compra.h"
 
 extern Produto produtos[100]; // Array global de produtos
 extern int totalProdutos;     // Contador global de produtos no estoque
@@ -19,18 +20,24 @@ void salvarEstoqueEmArquivo()
     printf("Erro ao abrir o arquivo de estoque!\n");
     return;
   }
-  fprintf(arquivo, "===== Estoque Hortifruti =====\n");
+
+  // Cabeçalho inicial do estoque
+  fprintf(arquivo, "===== Estoque Hortifruti =====\n\n");
+
+  // Loop para salvar cada produto no formato desejado
   for (int i = 0; i < totalProdutos; i++)
   {
+    fprintf(arquivo, "===== Produto %d =====\n", i + 1);
     fprintf(arquivo, "Nome: %s\n", produtos[i].nome);
     fprintf(arquivo, "Categoria: %s\n", produtos[i].categoria);
-    fprintf(arquivo, "Preço: %.2f\n", produtos[i].preco);
+    fprintf(arquivo, "Preço: R$ %.2f\n", produtos[i].preco);
     fprintf(arquivo, "Código de Barras: %ld\n", produtos[i].codigoBarras);
     fprintf(arquivo, "Fornecedor: %s\n", produtos[i].fornecedor);
     fprintf(arquivo, "Validade: %s\n", produtos[i].validade);
     fprintf(arquivo, "Quantidade em Estoque: %d\n", produtos[i].quantidade);
     fprintf(arquivo, "Quantidade Mínima Necessária: %d\n", produtos[i].qtdMinima);
-    fprintf(arquivo, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n\n", produtos[i].vendidoPorQuilo);
+    fprintf(arquivo, "Vendido por Quilo ou Unidade: %s\n\n",
+            produtos[i].vendidoPorQuilo ? "Quilo" : "Unidade");
   }
 
   fclose(arquivo);
@@ -47,54 +54,54 @@ void carregarEstoqueDeArquivo()
   }
 
   totalProdutos = 0;
-  char buffer[256]; // Um buffer para ler as linhas do arquivo
+  char buffer[256];
 
-  // Ignora a primeira linha (cabeçalho)
+  // Ignora o cabeçalho do estoque
   fgets(buffer, sizeof(buffer), arquivo);
 
-  while (totalProdutos < MAX_PRODUTOS && fgets(buffer, sizeof(buffer), arquivo) != NULL)
+  // Ler cada linha do arquivo até o final
+  while (fgets(buffer, sizeof(buffer), arquivo) != NULL)
   {
-    // O primeiro campo é o nome
-    if (sscanf(buffer, "Nome: %[^\n]\n", produtos[totalProdutos].nome) != 1)
-      break;
+    // Ignora as linhas de divisão de produtos
+    if (strncmp(buffer, "===== Produto", 13) == 0)
+    {
+      // Lê cada campo para o produto atual
+      fgets(buffer, sizeof(buffer), arquivo); // Nome
+      sscanf(buffer, "Nome: %[^\n]", produtos[totalProdutos].nome);
 
-    // O segundo campo é a categoria
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Categoria: %[^\n]\n", produtos[totalProdutos].categoria) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Categoria
+      sscanf(buffer, "Categoria: %[^\n]", produtos[totalProdutos].categoria);
 
-    // O terceiro campo é o preço
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Preço: %f\n", &produtos[totalProdutos].preco) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Preço
+      sscanf(buffer, "Preço: R$ %f", &produtos[totalProdutos].preco);
 
-    // O quarto campo é o código de barras
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Código de Barras: %ld\n", &produtos[totalProdutos].codigoBarras) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Código de Barras
+      sscanf(buffer, "Código de Barras: %ld", &produtos[totalProdutos].codigoBarras);
 
-    // O quinto campo é o fornecedor
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Fornecedor: %[^\n]\n", produtos[totalProdutos].fornecedor) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Fornecedor
+      sscanf(buffer, "Fornecedor: %[^\n]", produtos[totalProdutos].fornecedor);
 
-    // O sexto campo é a validade
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Validade: %[^\n]\n", produtos[totalProdutos].validade) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Validade
+      sscanf(buffer, "Validade: %[^\n]", produtos[totalProdutos].validade);
 
-    // O sétimo campo é a quantidade em estoque
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Quantidade em Estoque: %d\n", &produtos[totalProdutos].quantidade) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Quantidade em Estoque
+      sscanf(buffer, "Quantidade em Estoque: %d", &produtos[totalProdutos].quantidade);
 
-    // O oitavo campo é a quantidade mínima necessária
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Quantidade Mínima Necessária: %d\n", &produtos[totalProdutos].qtdMinima) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Quantidade Mínima Necessária
+      sscanf(buffer, "Quantidade Mínima Necessária: %d", &produtos[totalProdutos].qtdMinima);
 
-    // O nono campo é se é vendido por quilo ou unidade
-    if (fgets(buffer, sizeof(buffer), arquivo) == NULL || sscanf(buffer, "Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): %d\n", &produtos[totalProdutos].vendidoPorQuilo) != 1)
-      break;
+      fgets(buffer, sizeof(buffer), arquivo); // Vendido por Quilo ou Unidade
+      char vendidoPorQuilo[10];
+      sscanf(buffer, "Vendido por Quilo ou Unidade: %[^\n]", vendidoPorQuilo);
+      produtos[totalProdutos].vendidoPorQuilo = (strcmp(vendidoPorQuilo, "Quilo") == 0) ? 1 : 0;
 
-    totalProdutos++; // Somente incrementa se todos os campos foram lidos corretamente
+      // Incrementa o total de produtos
+      totalProdutos++;
+    }
   }
 
   fclose(arquivo);
-  printf("Estoque carregado com sucesso! Total de produtos: %d\n", totalProdutos);
+  printf("Estoque carregado com sucesso!\n");
 }
 
 void limparTela()
@@ -193,8 +200,8 @@ void inicializarProdutos()
   produtos[1].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[1].fornecedor, "Frutas BR");
   strcpy(produtos[1].validade, "15/11/2024");
-  produtos[1].qtdMinima = 450;
-  produtos[1].quantidade = 800;
+  produtos[1].qtdMinima = 300;
+  produtos[1].quantidade = 200;
   produtos[1].vendidoPorQuilo = 0;
 
   strcpy(produtos[2].nome, "Tomate");

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Definição da função menuPrincipal
+// Menu Principal que chama os Sub-Menus
 void menuPrincipal()
 {
   char titulo[20] = "Sistema Hortifácil";
@@ -45,7 +45,7 @@ void menuPrincipal()
   printf("\033[0m"); // Resetar cor
 }
 
-// Definição da função menuEstoque
+// Sub-Menu Sistema de Estoque
 void menuEstoque()
 {
   char titulo[20] = "Gestão de Estoque";
@@ -123,6 +123,7 @@ void menuEstoque()
   }
 }
 
+// Sub-Menu Sistema de Caixa
 void menuCaixa()
 {
   char titulo[20] = "Gestão de Vendas";
@@ -192,6 +193,7 @@ void menuCaixa()
   }
 }
 
+// Sub-Menu Sistema de Compras
 void menuCompras()
 {
   char titulo[20] = "Gestão de Compras";

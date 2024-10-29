@@ -1,9 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-
 #include "estoque.h"
 #include "utilidades.h"
 #include "caixa.h"
+
+#include <stdio.h>
+#include <string.h>
+
 
 extern Produto produtos[100];
 extern int totalProdutos;
@@ -13,6 +14,8 @@ int totalItensCarrinho = 0; // Contador de itens no carrinho
 
 void venderProduto()
 {
+    configurarConsoleUTF8();
+
     char nomeProduto[50];
     float peso = 0.0;
     int quantidade = 0;
@@ -201,6 +204,8 @@ void finalizarCompra()
     fprintf(arquivo, "======================\n\n");
 
     fclose(arquivo);
+
+    salvarEstoqueEmArquivo();
 
     // Limpar o carrinho
     totalItensCarrinho = 0;

@@ -1,31 +1,35 @@
 ===== Estoque Hortifruti =====
+
+===== Produto 1 =====
 Nome: Maçã
 Categoria: Frutas
-Preço: 3.99
-Código de Barras: 157357977
+Preço: R$ 3.99
+Código de Barras: 157357884
 Fornecedor: Fazenda da Mônica
 Validade: 10/12/2024
 Quantidade em Estoque: 200
 Quantidade Mínima Necessária: 150
-Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): 1
+Vendido por Quilo ou Unidade: Quilo
 
+===== Produto 2 =====
 Nome: Banana
 Categoria: Frutas
-Preço: 2.50
-Código de Barras: 157350070
+Preço: R$ 2.50
+Código de Barras: 157350139
 Fornecedor: Frutas BR
 Validade: 15/11/2024
-Quantidade em Estoque: 800
-Quantidade Mínima Necessária: 450
-Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): 0
+Quantidade em Estoque: 550
+Quantidade Mínima Necessária: 300
+Vendido por Quilo ou Unidade: Unidade
 
+===== Produto 3 =====
 Nome: Tomate
 Categoria: Frutas
-Preço: 4.20
-Código de Barras: 157351284
+Preço: R$ 4.20
+Código de Barras: 157356986
 Fornecedor: Frutas BR
 Validade: 20/12/2024
 Quantidade em Estoque: 400
 Quantidade Mínima Necessária: 360
-Vendido por Quilo ou Unidade (1 = Quilo & 0 = Unidade): 1
+Vendido por Quilo ou Unidade: Quilo
 

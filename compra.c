@@ -135,10 +135,21 @@ void finalizarCompraCompra()
     printf("Valor: R$ %.2f\n\n", carrinho[i].valorTotal);
     total += carrinho[i].valorTotal;
 
-    // Adiciona cada item ao estoque
-    adicionar_ao_estoque(carrinho[i].nome, carrinho[i].categoria, carrinho[i].preco, gerar_codigo_barras(),
-                         carrinho[i].fornecedor, carrinho[i].validade, carrinho[i].qtdMinima,
-                         carrinho[i].quantidade, carrinho[i].peso > 0);
+    // Verifica se o produto já existe no estoque
+    int indice_produto = encontrar_produto_no_estoque(carrinho[i].nome);
+
+    if (indice_produto != -1)
+    {
+      // Se o produto existe, apenas atualiza a quantidade
+      produtos[indice_produto].quantidade += carrinho[i].quantidade;
+    }
+    else
+    {
+      // Adiciona cada item ao estoque
+      adicionar_ao_estoque(carrinho[i].nome, carrinho[i].categoria, carrinho[i].preco, gerar_codigo_barras(),
+                           carrinho[i].fornecedor, carrinho[i].validade, carrinho[i].qtdMinima,
+                           carrinho[i].quantidade, carrinho[i].peso > 0);
+    }
   }
 
   printf("Total da compra: R$ %.2f\n", total);
@@ -165,6 +176,8 @@ void finalizarCompraCompra()
   fprintf(arquivo, "Total do pedido: R$ %.2f\n", total);
   fprintf(arquivo, "=====================\n\n");
   fclose(arquivo);
+
+  salvarEstoqueEmArquivo();
 
   totalItensCompra = 0;
   printf("\033[0;36mPressione ENTER para continuar...\n");
@@ -196,9 +209,9 @@ void mostrarHistoricoCompras()
   getchar();
 }
 
-// Função que realiza a compra de produto
 void comprar_produto()
 {
+  configurarConsoleUTF8();
   char nome[50];
   char categoria[20];
   float preco;
@@ -209,8 +222,6 @@ void comprar_produto()
   int qtdMinima;
   int vendidoPorQuilo;
 
-  configurarConsoleUTF8();
-
   printf("\n\033[1;36m===== Comprar Produto =====\033[0m\n\n");
 
   // Captura o nome do produto
@@ -219,6 +230,45 @@ void comprar_produto()
   fgets(nome, sizeof(nome), stdin);
   nome[strcspn(nome, "\n")] = 0; // Remove o '\n' capturado pelo fgets
 
+  // Verifica se o produto já existe no estoque
+  int indice_produto = encontrar_produto_no_estoque(nome);
+
+  if (indice_produto != -1)
+  {
+    int opcao;
+    printf("\n\033[1;31m===== Produto já existe! =====\033[0m\n\n");
+    printf("Deseja apenas adicionar quantidade (1) ou comprar de outro fornecedor (2)?: ");
+    scanf("%d", &opcao);
+    limpar_buffer();
+
+    if (opcao == 1)
+    {
+      // Adicionar quantidade ao estoque existente
+      int quantidade_adicional;
+      if (produtos[indice_produto].vendidoPorQuilo)
+      {
+        printf("Digite o peso (em quilos) a adicionar ao estoque: ");
+        scanf("%f", &peso);
+        limpar_buffer();
+        quantidade_adicional = (int)(peso * 40);
+      }
+      else
+      {
+        printf("Digite a quantidade do produto a adicionar ao estoque: ");
+        scanf("%d", &quantidade_adicional);
+        limpar_buffer();
+      }
+      // Adiciona o item ao carrinho com a quantidade extra
+      adicionar_ao_carrinho(produtos[indice_produto].nome, produtos[indice_produto].categoria,
+                            produtos[indice_produto].preco, quantidade_adicional, peso,
+                            produtos[indice_produto].validade, produtos[indice_produto].fornecedor,
+                            produtos[indice_produto].qtdMinima);
+
+      printf("\033[0;36mPressione ENTER para continuar...\n");
+      getchar();
+      return; // Termina a função após adicionar a quantidade
+    }
+  }
   // Captura a categoria do produto
   printf("Digite a categoria do produto: ");
   fgets(categoria, sizeof(categoria), stdin);
@@ -256,6 +306,9 @@ void comprar_produto()
     printf("Digite o peso (em quilos) do produto a ser comprado: ");
     scanf("%f", &peso);
     limpar_buffer(); // Limpa o buffer de entrada
+
+    // Calcula a quantidade proporcional de unidades para estoque (1kg = 40 unidades)
+    quantidade = (int)(peso * 40); // Calcula o valor proporcional
   }
   else
   {
@@ -271,4 +324,16 @@ void comprar_produto()
   printf("\nItem '%s' adicionado ao carrinho!\n", nome);
   printf("\n\033[0;36mPressione ENTER para continuar...\n");
   getchar();
+}
+
+int encontrar_produto_no_estoque(const char *nome_produto)
+{
+  for (int i = 0; i < MAX_PRODUTOS; i++)
+  {
+    if (strcmp(produtos[i].nome, nome_produto) == 0)
+    {
+      return i; // Retorna o índice do produto no array
+    }
+  }
+  return -1; // Produto não encontrado
 }
