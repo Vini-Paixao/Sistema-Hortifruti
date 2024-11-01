@@ -3,6 +3,7 @@
 
 #include "estoque.h"
 
+// Declaração das funções dos Menus
 void menuEstoque();
 void menuPrincipal();
 void menuCaixa();

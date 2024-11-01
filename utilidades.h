@@ -17,8 +17,6 @@ void limparTela();
 void limpar_buffer();
 void gerarProdutosAleatorios();
 int existeProdutoComNome(const char *nome);
-
-// Funções Compras
 int login_admin(char login[], char senha[]);
 
 #endif

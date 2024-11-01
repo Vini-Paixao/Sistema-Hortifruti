@@ -1,15 +1,15 @@
+// Incluindo dependências
 #include "estoque.h"
 #include "utilidades.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 
-
 Produto produtos[100]; // Array global de produtos
 int totalProdutos = 0; // Contador global de produtos no estoque
 
+// Função para listar os produtos em Estoque
 void listarProdutos()
 {
   configurarConsoleUTF8();
@@ -85,8 +85,10 @@ void listarProdutos()
   getchar(); // Captura o Enter, para evitar pular
 }
 
+// Função para buscar por nome
 void buscarProduto(char nome[])
 {
+  configurarConsoleUTF8(); // Configura o console para UTF-8
   printf("\n\033[1;34mBusca de Produtos no Estoque -\033[0m\n\n");
   int encontrado = 0;
 
@@ -122,8 +124,10 @@ void buscarProduto(char nome[])
   getchar(); // Captura o Enter, para evitar pular
 }
 
+// Função para remover do estoque
 void removerProduto(char nome[])
 {
+  configurarConsoleUTF8(); // Configura o console para UTF-8
   printf("\n\033[1;34mRemovendo Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 
@@ -158,8 +162,10 @@ void removerProduto(char nome[])
   getchar(); // Captura o Enter, para evitar pular
 }
 
+// Função para editar um produto existente
 void editarProduto(char nome[])
 {
+  configurarConsoleUTF8(); // Configura o console para UTF-8
   printf("\n\033[1;34mEditando Produtos do Estoque -\033[0m\n\n");
   int encontrado = 0;
 

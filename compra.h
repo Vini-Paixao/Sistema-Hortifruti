@@ -4,7 +4,8 @@
 #include "estoque.h"
 
 // Estrutura para representar cada item no carrinho de compras
-typedef struct {
+typedef struct
+{
     char nome[50];
     char categoria[20];
     float preco;
@@ -20,18 +21,16 @@ typedef struct {
 ItemCompra carrinho[100];
 extern int totalItensCompra;
 
-// Função para realizar a compra de um produto
+// Declaração das funções de Compra
 void comprar_produto();
-
 void adicionar_ao_estoque(char nome[], char categoria[], float preco, long codigoBarras,
                           char fornecedor[], char validade[], int qtdMinima, int quantidade, int vendidoPorQuilo);
-
 void mostrarHistoricoCompras();
 void finalizarCompraCompra();
 void adicionar_ao_carrinho(char nome[], char categoria[], float preco, int quantidade, float peso,
                            char validade[], char fornecedor[], int qtdMinima);
 void verCarrinhoCompra();
-
 int encontrar_produto_no_estoque(const char *nome_produto);
+void cancelarCarrinhoCompra();
 
 #endif

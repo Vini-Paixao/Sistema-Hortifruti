@@ -1,14 +1,15 @@
+// Incluindo dependências
 #include "compra.h"
 #include "estoque.h"
 #include "utilidades.h"
-
 #include <stdio.h>
 #include <string.h>
 
-extern Produto produtos[100];
-extern int totalProdutos; // Contador do total de produtos no estoque
-int totalItensCompra = 0;
+extern Produto produtos[100]; // Array global de produtos
+extern int totalProdutos;     // Contador global do total de produtos no estoque
+int totalItensCompra = 0;     // Total de itens a comprar
 
+// Função para adicionar ao estoque
 void adicionar_ao_estoque(char nome[], char categoria[], float preco,
                           long codigoBarras, char fornecedor[], char validade[],
                           int qtdMinima, int quantidade, int vendidoPorQuilo)
@@ -41,6 +42,7 @@ void adicionar_ao_estoque(char nome[], char categoria[], float preco,
   salvarEstoqueEmArquivo();
 }
 
+// Função para visualizar o carrinho
 void verCarrinhoCompra()
 {
   if (totalItensCompra == 0)
@@ -64,6 +66,7 @@ void verCarrinhoCompra()
   getchar();
 }
 
+// Função para adicionar ao carrinho
 void adicionar_ao_carrinho(char nome[], char categoria[], float preco, int quantidade, float peso,
                            char validade[], char fornecedor[], int qtdMinima)
 {
@@ -82,9 +85,10 @@ void adicionar_ao_carrinho(char nome[], char categoria[], float preco, int quant
   carrinho[totalItensCompra] = item;
   totalItensCompra++;
 
-  printf("\nItem '%s' adicionado ao carrinho!\n", nome);
+  printf("\n\033[1;32mItem '%s' adicionado ao carrinho!\n\033[0m", nome);
 }
 
+// Função para finalizar a compra
 void finalizarCompraCompra()
 {
   if (totalItensCompra == 0)
@@ -185,6 +189,7 @@ void finalizarCompraCompra()
   getchar();
 }
 
+// Visualizar as compras já realizadas
 void mostrarHistoricoCompras()
 {
   FILE *arquivo = fopen("compras.txt", "r");
@@ -209,6 +214,7 @@ void mostrarHistoricoCompras()
   getchar();
 }
 
+// Função para começar a compra de um produto
 void comprar_produto()
 {
   configurarConsoleUTF8();
@@ -308,7 +314,7 @@ void comprar_produto()
     limpar_buffer(); // Limpa o buffer de entrada
 
     // Calcula a quantidade proporcional de unidades para estoque (1kg = 40 unidades)
-    quantidade = (int)(peso * 40); // Calcula o valor proporcional
+    quantidade = (int)(peso * 10); // Calcula o valor proporcional
   }
   else
   {
@@ -321,11 +327,11 @@ void comprar_produto()
   // Adiciona o produto ao carrinho com o valor de peso ou quantidade conforme o tipo de venda
   adicionar_ao_carrinho(nome, categoria, preco, quantidade, peso, validade, fornecedor, qtdMinima);
 
-  printf("\nItem '%s' adicionado ao carrinho!\n", nome);
   printf("\n\033[0;36mPressione ENTER para continuar...\n");
   getchar();
 }
 
+// Função para verificar se já existe o produto no estoque
 int encontrar_produto_no_estoque(const char *nome_produto)
 {
   for (int i = 0; i < MAX_PRODUTOS; i++)
@@ -336,4 +342,25 @@ int encontrar_produto_no_estoque(const char *nome_produto)
     }
   }
   return -1; // Produto não encontrado
+}
+
+// Função para cancelar todos os itens do carrinho de compras
+void cancelarCarrinhoCompra()
+{
+  if (totalItensCompra == 0)
+  {
+    printf("\n\033[1;31m===== Carrinho já está vazio =====\033[0m\n\n");
+    printf("\033[0;36mPressione ENTER para continuar...\n");
+    getchar();
+    getchar();
+    return;
+  }
+
+  // Limpar o carrinho de compras
+  totalItensCompra = 0; // Zera o contador de itens no carrinho
+  printf("\n\033[1;32mCarrinho de compras cancelado com sucesso! Todos os itens foram removidos.\033[0m\n\n");
+
+  printf("\033[0;36mPressione ENTER para continuar...\n");
+  getchar();
+  getchar();
 }

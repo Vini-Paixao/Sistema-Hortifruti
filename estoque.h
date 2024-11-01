@@ -3,6 +3,7 @@
 
 #define MAX_PRODUTOS 100
 
+// Estrutura para representar um produto no estoque
 typedef struct
 {
   char nome[50];

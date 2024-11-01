@@ -1,17 +1,20 @@
+// Incluindo dependências
 #include "estoque.h"
 #include "compra.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
 #include <locale.h>
+#include <conio.h>
+#include <setjmp.h>
 
+extern Produto produtos[100];       // Array global de produtos
+extern int totalProdutos;           // Contador global de produtos no estoque
+extern jmp_buf menuPrincipalReturn; // Declaração externa para acessar o ponto de retorno ao menu principal
 
-extern Produto produtos[100]; // Array global de produtos
-extern int totalProdutos;     // Contador global de produtos no estoque
-
+// Função para salvar o Estoque em arquivo
 void salvarEstoqueEmArquivo()
 {
   FILE *arquivo = fopen("estoque.txt", "w");
@@ -44,6 +47,7 @@ void salvarEstoqueEmArquivo()
   printf("\n\033[1;32m===== Estoque Salvo! =====\033[0m\n\n");
 }
 
+// Função para carregar as informações do arquivo
 void carregarEstoqueDeArquivo()
 {
   FILE *arquivo = fopen("estoque.txt", "r");
@@ -104,6 +108,7 @@ void carregarEstoqueDeArquivo()
   printf("Estoque carregado com sucesso!\n");
 }
 
+// FUnção para limpar o Console
 void limparTela()
 {
 #ifdef _WIN32
@@ -134,6 +139,7 @@ void limpar_buffer()
     ;
 }
 
+// Função para configurar o console em UTF8
 void configurarConsoleUTF8()
 {
   // Configura o terminal para UTF-8
@@ -142,6 +148,7 @@ void configurarConsoleUTF8()
   setlocale(LC_ALL, "Portuguese_Brazil.UTF-8"); // Configura o locale para português do Brasil com UTF-8
 }
 
+// FUnção para gerar os códigos de barras dos produtos
 long gerar_codigo_barras()
 {
   int prefixo = 15735;                            // Define os 5 primeiros dígitos
@@ -181,7 +188,7 @@ struct tm string_para_data(char *data_str)
   return data;
 }
 
-// Função para adicionar produtos de teste ao estoque
+// Função para inciar o estoque com 3 produtos
 void inicializarProdutos()
 {
   strcpy(produtos[0].nome, "Maçã");
@@ -190,8 +197,8 @@ void inicializarProdutos()
   produtos[0].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[0].fornecedor, "Fazenda da Mônica");
   strcpy(produtos[0].validade, "10/12/2024");
-  produtos[0].qtdMinima = 150;
-  produtos[0].quantidade = 200;
+  produtos[0].qtdMinima = 15;
+  produtos[0].quantidade = 30;
   produtos[0].vendidoPorQuilo = 1;
 
   strcpy(produtos[1].nome, "Banana");
@@ -200,8 +207,8 @@ void inicializarProdutos()
   produtos[1].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[1].fornecedor, "Frutas BR");
   strcpy(produtos[1].validade, "15/11/2024");
-  produtos[1].qtdMinima = 300;
-  produtos[1].quantidade = 200;
+  produtos[1].qtdMinima = 20;
+  produtos[1].quantidade = 60;
   produtos[1].vendidoPorQuilo = 0;
 
   strcpy(produtos[2].nome, "Tomate");
@@ -210,14 +217,15 @@ void inicializarProdutos()
   produtos[2].codigoBarras = gerar_codigo_barras();
   strcpy(produtos[2].fornecedor, "Frutas BR");
   strcpy(produtos[2].validade, "20/12/2024");
-  produtos[2].qtdMinima = 360;
-  produtos[2].quantidade = 400;
+  produtos[2].qtdMinima = 20;
+  produtos[2].quantidade = 45;
   produtos[2].vendidoPorQuilo = 1;
 
   totalProdutos = 3; // Atualizando o total de produtos
   salvarEstoqueEmArquivo();
 }
 
+// Função para buscar se existe produto com o mesmo nome
 int existeProdutoComNome(const char *nome)
 {
   for (int i = 0; i < totalProdutos; i++)
@@ -230,6 +238,7 @@ int existeProdutoComNome(const char *nome)
   return 0; // Nome não existe, é único
 }
 
+// Função para gerar 27 produtos aleatórios
 void gerarProdutosAleatorios()
 {
   const char *frutas[] = {"Mamão", "Melão", "Abacaxi", "Uva", "Laranja", "Manga", "Melancia", "Pera", "Caju", "Kiwi", "Amora", "Carambola", "Pêssego", "Framboesa", "Goiaba", "Guaraná", "Jabuticaba", "Lichia", "Abacate"};
@@ -280,8 +289,8 @@ void gerarProdutosAleatorios()
     snprintf(novoProduto.validade, 11, "%02d/%02d/%04d", validade.tm_mday, validade.tm_mon + 1, validade.tm_year + 1900);
 
     // Define a quantidade mínima entre 5 e 20 e a quantidade em estoque entre 10 e 100
-    novoProduto.qtdMinima = rand() % 106 + 100;
-    novoProduto.quantidade = rand() % 201 + 300;
+    novoProduto.qtdMinima = rand() % 6 + 19;
+    novoProduto.quantidade = rand() % 6 + 29;
 
     // Adiciona o produto ao array global
     produtos[totalProdutos] = novoProduto;

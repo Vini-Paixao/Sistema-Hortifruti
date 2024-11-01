@@ -1,12 +1,13 @@
+// Incluindo dependências
 #include "menus.h"
 #include "utilidades.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
 #include <locale.h>
 
+// Função Principal do projeto
 int main()
 {
     srand(time(NULL));          // Inicializa o gerador de números aleatórios com base no tempo
@@ -15,6 +16,7 @@ int main()
     carregarEstoqueDeArquivo(); // Carrega o arquivo de Estoque
 
     int opcao = 0; // Opção que o usuário vai selecionar e começa em 0
+
     while (opcao != 4)
     {
         limparTela();
@@ -36,6 +38,7 @@ int main()
         if (opcao < 1 || opcao > 4)
         {
             printf("\nOpção inválida! Tente novamente.\n");
+            printf("\033[0;32m"); // Aplicando cor verde
             continue;
         }
 

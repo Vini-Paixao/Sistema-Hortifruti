@@ -1,9 +1,9 @@
-#include "menus.h"      // Incluímos o cabeçalho menus.h
-#include "compra.h"     // Incluímos compra.h para adicionar ao Estoque
-#include "caixa.h"      // Incluímos compra.h para vender do Estoque
-#include "estoque.h"    // Incluímos estoque.h para usar Produto
-#include "utilidades.h" // Incluímos utilidades.h para usar as Funções Auxiliares
-
+// Incluindo dependências
+#include "menus.h"
+#include "compra.h"
+#include "caixa.h"
+#include "estoque.h"
+#include "utilidades.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,7 +49,7 @@ void menuPrincipal()
 void menuEstoque()
 {
   char titulo[20] = "Gestão de Estoque";
-  printf("\033[0;34m"); // Aplicando cor azul
+  printf("\033[1;34m"); // Aplicando cor azul
   int opcao = 0;
   char nome[50];
 
@@ -117,7 +117,7 @@ void menuEstoque()
       printf("Opção inválida, pressione ENTER para tente novamente.\n");
       getchar();
       getchar();
-      printf("\033[0;34m"); // Aplicando cor azul
+      printf("\033[1;34m"); // Aplicando cor azul
       break;
     }
   }
@@ -129,7 +129,7 @@ void menuCaixa()
   char titulo[20] = "Gestão de Vendas";
   printf("\033[0;31m"); // Aplicando cor vermelha
   int opcao = 0;
-  while (opcao != 5)
+  while (opcao != 6)
   {
     limparTela();
     int largura = 31;
@@ -155,8 +155,9 @@ void menuCaixa()
     printf("\n\t║      1 - Iniciar Venda        ║");
     printf("\n\t║      2 - Ver Carrinho         ║");
     printf("\n\t║      3 - Finalizar Venda      ║");
-    printf("\n\t║      4 - Histórico Vendas     ║");
-    printf("\n\t║      5 - Voltar               ║");
+    printf("\n\t║      4 - Cancelar Venda       ║");
+    printf("\n\t║      5 - Histórico Vendas     ║");
+    printf("\n\t║      6 - Voltar               ║");
 
     printf("\n\t╚");
     for (int i = 0; i < largura; i++)
@@ -178,9 +179,12 @@ void menuCaixa()
       finalizarCompra(); // Finaliza a compra e salva no arquivo
       break;
     case 4:
-      mostrarHistoricoVendas(); // Exibe o histórico de vendas do arquivo
+      cancelarCarrinho(); // Cancelar o carrinho
       break;
     case 5:
+      mostrarHistoricoVendas(); // Exibe o histórico de vendas do arquivo
+      break;
+    case 6:
       printf("Voltando ao menu principal...\n");
       break;
     default:
@@ -199,7 +203,7 @@ void menuCompras()
   char titulo[20] = "Gestão de Compras";
   printf("\033[0;36m"); // Aplicando cor Ciano
   int opcao = 0;
-  while (opcao != 5)
+  while (opcao != 6)
   {
     limparTela();
     int largura = 31;
@@ -225,8 +229,9 @@ void menuCompras()
     printf("\n\t║     1 - Iniciar Compra        ║");
     printf("\n\t║     2 - Ver Carrinho          ║");
     printf("\n\t║     3 - Finalizar Compra      ║");
-    printf("\n\t║     4 - Histórico Compras     ║");
-    printf("\n\t║     5 - Voltar                ║");
+    printf("\n\t║     4 - Cancelar Compra       ║");
+    printf("\n\t║     5 - Histórico Compras     ║");
+    printf("\n\t║     6 - Voltar                ║");
 
     printf("\n\t╚");
     for (int i = 0; i < largura; i++)
@@ -248,9 +253,12 @@ void menuCompras()
       finalizarCompraCompra();
       break;
     case 4:
-      mostrarHistoricoCompras();
+      cancelarCarrinhoCompra();
       break;
     case 5:
+      mostrarHistoricoCompras();
+      break;
+    case 6:
       printf("Voltando ao menu principal...\n");
       break;
     default:

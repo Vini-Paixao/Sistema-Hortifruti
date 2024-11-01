@@ -11,9 +11,11 @@ typedef struct
     float valorTotal;
 } CarrinhoItem;
 
+// Declaração das funções de Caixa
 void venderProduto();
 void verCarrinho();
 void finalizarCompra();
 void mostrarHistoricoVendas();
+void cancelarCarrinho();
 
 #endif

@@ -1,25 +1,26 @@
+// Incluindo dependências
 #include "estoque.h"
 #include "utilidades.h"
 #include "caixa.h"
-
 #include <stdio.h>
 #include <string.h>
 
-
-extern Produto produtos[100];
-extern int totalProdutos;
+extern Produto produtos[100]; // Array global de produtos
+extern int totalProdutos;     // Contador global do total de produtos no estoque
 
 CarrinhoItem carrinho[100]; // Array para armazenar os itens do carrinho
 int totalItensCarrinho = 0; // Contador de itens no carrinho
 
+// Função para iniciar uma venda
 void venderProduto()
 {
     configurarConsoleUTF8();
-
     char nomeProduto[50];
     float peso = 0.0;
     int quantidade = 0;
     int encontrado = 0;
+
+    printf("\n\033[1;31m===== Vender Produto =====\033[0m\n\n");
 
     printf("Digite o nome do produto que deseja vender: ");
     getchar(); // Limpar o buffer
@@ -111,20 +112,20 @@ void venderProduto()
 
     if (!encontrado)
     {
-        printf("Produto não encontrado.\n");
+        printf("\n\033[0;31m===== Produto não Encontrado =====\033[0m\n\n");
     }
 
     printf("\033[1;31mPressione ENTER para continuar...\n\033[0m");
-    getchar();
-    getchar(); // Pausa até que o usuário pressione enter
+    printf("\033[0;31m"); // Aplicando cor vermelha
+    getchar();            // Pausa até que o usuário pressione enter
 }
 
+// Função para visualizar o carrinho atual
 void verCarrinho()
 {
     if (totalItensCarrinho == 0)
     {
         printf("\n\033[0;31m===== Carrinho Vazio =====\033[0m\n\n");
-        getchar();
     }
     else
     {
@@ -142,6 +143,7 @@ void verCarrinho()
     getchar(); // Pausa até que o usuário pressione enter
 }
 
+// Função para finalizar uma compra
 void finalizarCompra()
 {
     if (totalItensCarrinho == 0)
@@ -209,7 +211,7 @@ void finalizarCompra()
 
     // Limpar o carrinho
     totalItensCarrinho = 0;
-    printf("\n\033[1;32mCompra finalizada com sucesso!\033[0m\n\n");
+    printf("\n\033[1;32mVenda finalizada com sucesso!\033[0m\n\n");
 
     printf("\033[1;31mPressione ENTER para continuar...\n\033[0m");
     printf("\033[0;31m"); // Aplicando cor vermelha
@@ -217,6 +219,7 @@ void finalizarCompra()
     getchar(); // Pausa até que o usuário pressione enter
 }
 
+// Função para mostrar as vendas
 void mostrarHistoricoVendas()
 {
     FILE *arquivo = fopen("vendas.txt", "r");
@@ -237,6 +240,51 @@ void mostrarHistoricoVendas()
         printf("%s", linha);
     }
     fclose(arquivo);
+
+    printf("\n\033[1;31mPressione ENTER para continuar...\n\033[0m");
+    printf("\033[0;31m"); // Aplicando cor vermelha
+    getchar();
+    getchar(); // Pausa até que o usuário pressione enter
+}
+
+// Função para cancelar toda a compra (esvaziar o carrinho)
+void cancelarCarrinho()
+{
+    if (totalItensCarrinho == 0)
+    {
+        printf("\n\033[0;31m===== Carrinho já está vazio =====\033[0m\n\n");
+        printf("\n\033[1;31mPressione ENTER para continuar...\n\033[0m");
+        printf("\033[0;31m"); // Aplicando cor vermelha
+        getchar();
+        getchar(); // Pausa até que o usuário pressione enter
+        return;
+    }
+
+    // Reverter as quantidades dos itens no carrinho ao estoque
+    for (int i = 0; i < totalItensCarrinho; i++)
+    {
+        for (int j = 0; j < totalProdutos; j++)
+        {
+            if (strcmp(produtos[j].nome, carrinho[i].nome) == 0)
+            {
+                // Devolve a quantidade ou peso do produto para o estoque
+                if (carrinho[i].peso > 0)
+                {
+                    produtos[j].quantidade += (int)(10 * carrinho[i].peso); // Conversão para unidades se vendido por peso
+                }
+                else
+                {
+                    produtos[j].quantidade += carrinho[i].quantidade;
+                }
+                break;
+            }
+        }
+    }
+
+    // Esvaziar o carrinho
+    totalItensCarrinho = 0;
+    printf("\n\033[1;32m===== Carrinho Cancelado =====\033[0m\n\n");
+    printf("Todos os itens foram devolvidos ao estoque");
 
     printf("\n\033[1;31mPressione ENTER para continuar...\n\033[0m");
     printf("\033[0;31m"); // Aplicando cor vermelha
