@@ -1,6 +1,6 @@
 # Sistema de Gestão Hortifruti - <img align="center" alt="Vini-Python" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg">
 
-Este é um sistema de **Gestão de Hortifruti** chamado **Sistema Hortifácil**, desenvolvido em C para o Projeto Integrador Multidisciplinar (PIM) da Unip Cidade Universitária. Ele permite gerenciar 3 áreas dentro do Hortifruti visando melhorar o desempenho da equipe com um sistema que ajuda nas tarefas diárias os módulos funcionais são:
+Este é um sistema de **Gestão de Hortifruti** chamado **Hortifácil**, desenvolvido em C para o Projeto Integrador Multidisciplinar (PIM) da Unip Cidade Universitária. Ele permite gerenciar 3 áreas dentro do Hortifruti visando melhorar o desempenho da equipe com um sistema que ajuda nas tarefas diárias os módulos funcionais são:
 
 - Gestão de Estoque
 - Sistema de Caixa
@@ -23,44 +23,52 @@ Confira as funcionalidades com detalhes.
   - **Histórico de Vendas**: Consulta o histórico completo das vendas.
 
 - **Sistema de Compras:**
-  - **Comprar Produto**: Faz a compra de um produto para adicionar no estoque.
-  - **Gerar Relatório**: Gerar relatório das últimas comprar.
-  - **Consultar Pedidos**: Consultar os últimos pedidos efetuados.
-  - **Histórico de Compras**: Histórico completo de compras.
+  - **Iniciar Compra**: Inicia a compra e adiciona os produtos no carrinho de compras.
+  - **Ver Carrinho**: Ver carrinho de compras atual.
+  - **Finalizar Compra**: Finalizar compra com os itens do carrinho.
+  - **Cancelar Compra**: Cancelar carrinho atual.
+  - **Histórico Compras**: Histórico completo de compras.
 
 - **Funcionalidades Extras:**
   - **Estoque em Arquivo**: O estoque é estático armazenado em um arquivo, mantendo os valores.
+  - **Vendas em Arquivo**: As vendas são armazenadas em arquivos estático, mantendo o histórico.
   - **Aviso de Data de Validade**: Cálculo de validade, para manter todos os produtos na validade.
   - **Aviso de Estoque**: Controle de quantidade de produtos disponíveis em estoque, com o mínimo necessário.
-  - **Vendas em Arquivo**: As vendas são armazenadas em arquivos estático, mantendo o histórico.
 
 ## Demonstração
 
-Tem 2 métodos para executar este programa:
+Tem 2 métodos para executar este programa, pode usar uma IDE
 
-- Certifiquesse de ter um compilador em C nesse exemplo estou usando o `MinGW`:
+## Método Automático
 
-  Clone o projeto:
+Você pode baixar e executar o arquivo `Hortifácil.exe` disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/tag/1.0.0)
 
-  ```bash
-  git clone https://github.com/Vini-Paixao/Sistema-Hortifruti.git
-  ```
+Ao tentar baixar pela opção acima o Windows vai exibir uma imagem de erro, esse alerta aparece porque o Windows não reconhece o fornecedor, e o SmartScreen classifica aplicativos não assinados como potencialmente inseguros.
+É normal que o Windows exiba esse alerta, e quem for rodar o aplicativo apenas precisa clicar em "Mais informações" e depois em "Executar assim mesmo" para ignorar a mensagem.
 
-  Entre no projeto:
+## Método Manual
 
-  ```bash
-  cd Sistema-Hortifruti
-  ```
+Certifiquesse de ter um compilador em C nesse exemplo estou usando o `MinGW` com o `Visual Studio Code`:
 
-  Execute o comando:
+1. Clone o projeto
 
-  ```bash
-  gcc -Wall -Wextra -g3 "main.c" "estoque.c" "menus.c" "utilidades.c" "compra.c" "caixa.c" -o "output\sistema-hortifruti.exe"
-  ```
+```bash
+git clone https://github.com/Vini-Paixao/Sistema-Hortifruti.git
+```
 
-  Execute o arquivo `sistema-hortifruti.exe`
+2. Entre no projeto:
 
-- Ou você pode baixer e executar o arquivo `sistema-hortifruti.exe` direto disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/tag/Beta_2.0)
+```bash
+cd Sistema-Hortifruti
+```
+
+3. Execute o comando:
+
+```bash
+gcc -Wall -Wextra -g3 main.c estoque.c menus.c utilidades.c compra.c caixa.c recurso.o -o output\Hortifácil.exe
+```
+
+Por fim execute o arquivo `Hortifácil.exe` dentro da pasta `/output`
 
 ## Feedback
 

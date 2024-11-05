@@ -58,9 +58,18 @@ void verCarrinhoCompra()
   for (int i = 0; i < totalItensCompra; i++)
   {
     printf("Produto: %s\n", carrinho[i].nome);
-    printf("Quantidade/Peso: %.2f\n", carrinho[i].peso > 0 ? carrinho[i].peso : (float)carrinho[i].quantidade);
+
+    if (carrinho[i].peso > 0)
+    {
+      printf("Peso: %.2f kg\n", carrinho[i].peso);
+    }
+    else
+    {
+      printf("Quantidade: %d\n", carrinho[i].quantidade);
+    }
     printf("Valor: R$ %.2f\n\n", carrinho[i].valorTotal);
   }
+
   printf("\033[0;36mPressione ENTER para continuar...\n");
   getchar();
   getchar();
@@ -133,7 +142,14 @@ void finalizarCompraCompra()
     printf("Produto: %s\n", carrinho[i].nome);
     printf("Categoria: %s\n", carrinho[i].categoria);
     printf("Fornecedor: %s\n", carrinho[i].fornecedor);
-    printf("Quantidade/Peso: %.2f\n", carrinho[i].peso > 0 ? carrinho[i].peso : (float)carrinho[i].quantidade);
+    if (carrinho[i].peso > 0)
+    {
+      printf("Peso: %.2f kg\n", carrinho[i].peso);
+    }
+    else
+    {
+      printf("Quantidade: %d\n", carrinho[i].quantidade);
+    }
     printf("Validade: %s\n", carrinho[i].validade);
     printf("Quantidade Mínima: %d\n", carrinho[i].qtdMinima);
     printf("Valor: R$ %.2f\n\n", carrinho[i].valorTotal);
@@ -172,7 +188,14 @@ void finalizarCompraCompra()
     fprintf(arquivo, "Produto: %s\n", carrinho[i].nome);
     fprintf(arquivo, "Categoria: %s\n", carrinho[i].categoria);
     fprintf(arquivo, "Fornecedor: %s\n", carrinho[i].fornecedor);
-    fprintf(arquivo, "Quantidade/Peso: %.2f\n", carrinho[i].peso > 0 ? carrinho[i].peso : (float)carrinho[i].quantidade);
+    if (carrinho[i].peso > 0)
+    {
+      fprintf(arquivo, "Peso: %.2f kg\n", carrinho[i].peso);
+    }
+    else
+    {
+      fprintf(arquivo, "Quantidade: %d\n", carrinho[i].quantidade);
+    }
     fprintf(arquivo, "Validade: %s\n", carrinho[i].validade);
     fprintf(arquivo, "Quantidade Mínima: %d\n", carrinho[i].qtdMinima);
     fprintf(arquivo, "Valor: R$ %.2f\n\n", carrinho[i].valorTotal);
@@ -203,7 +226,7 @@ void mostrarHistoricoCompras()
   }
 
   char linha[256];
-  printf("\n\n\033[1;36m===== Histórico de Compras =====\n\n");
+  printf("\n\n\033[1;36m===== Histórico de Compras =====\033[0m\n\n");
   while (fgets(linha, sizeof(linha), arquivo))
   {
     printf("%s", linha);

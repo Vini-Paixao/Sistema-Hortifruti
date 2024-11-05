@@ -39,6 +39,7 @@ int main()
         {
             printf("\nOpção inválida! Tente novamente.\n");
             printf("\033[0;32m"); // Aplicando cor verde
+            getchar();
             continue;
         }
 
