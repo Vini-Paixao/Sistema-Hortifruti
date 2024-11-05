@@ -37,11 +37,11 @@ Confira as funcionalidades com detalhes.
 
 ## Demonstração
 
-Tem 2 métodos para executar este programa, pode usar uma IDE como o Visual Studio Code e compilar manualmente o projeto para executar no seu computador, ou se estiver no Windows apenas baixar o arquivo `Hortifácil.exe` disponível na Release do projeto, confira!
+Tem 2 métodos para executar este programa, pode usar uma IDE como o Visual Studio Code e compilar manualmente o projeto para executar no seu computador, ou se estiver no Windows apenas baixar o arquivo `Hortifacil.exe` disponível na Release do projeto, confira!
 
 ## Método Automático
 
-Você pode baixar e executar o arquivo `Hortifácil.exe` disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/tag/1.0.0)
+Você pode baixar e executar o arquivo `Hortifacil.exe` disponível na área de Release deste projeto - [Clique Aqui](https://github.com/Vini-Paixao/Sistema-Hortifruti/releases/tag/Final)
 
 Ao tentar baixar pela opção acima o Windows vai exibir uma imagem de erro, esse alerta aparece porque o Windows não reconhece o fornecedor, e o SmartScreen classifica aplicativos não assinados como potencialmente inseguros.
 É normal que o Windows exiba esse alerta, e quem for rodar o aplicativo apenas precisa clicar em "Mais informações" e depois em "Executar assim mesmo" para ignorar a mensagem.
