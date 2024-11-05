@@ -37,7 +37,7 @@ Confira as funcionalidades com detalhes.
 
 ## Demonstração
 
-Tem 2 métodos para executar este programa, pode usar uma IDE
+Tem 2 métodos para executar este programa, pode usar uma IDE como o Visual Studio Code e compilar manualmente o projeto para executar no seu computador, ou se estiver no Windows apenas baixar o arquivo `Hortifácil.exe` disponível na Release do projeto, confira!
 
 ## Método Automático
 
